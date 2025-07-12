@@ -1,14 +1,51 @@
-import"./style-HlQJNEhF.js";import{g as t}from"./utils-B4K_OIKz.js";function e(){const r=t("so-cart").map(c=>s(c));document.querySelector(".product-list").innerHTML=r.join("")}function s(a){return`<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${a.Image}"
-      alt="${a.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${a.Name}</h2>
-  </a>
-  <p class="cart-card__color">${a.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${a.FinalPrice}</p>
-</li>`}e();
+// src/cart.js
+
+/**
+ * Read and parse a JSON value from localStorage.
+ * @param {string} key
+ * @returns {any|null}
+ */
+export function getLocalStorage(key) {
+  const json = localStorage.getItem(key);
+  return json ? JSON.parse(json) : null;
+}
+
+/**
+ * Stringify and write a value to localStorage.
+ * @param {string} key
+ * @param {any} value
+ */
+export function setLocalStorage(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+/**
+ * Add a product object to the cart in localStorage under 'so-cart'.
+ * If the cart doesn’t exist yet, start a new array.
+ * @param {Object} product
+ */
+export function addProductToCart(product) {
+  // 1️⃣ Grab existing cart (or empty array)
+  const cart = getLocalStorage("so-cart") || [];
+
+  // 2️⃣ Append the new product
+  cart.push(product);
+
+  // 3️⃣ Save the updated array back
+  setLocalStorage("so-cart", cart);
+}
+
+/**
+ * Return the current array of products in the cart.
+ * @returns {Object[]}
+ */
+export function getCartProducts() {
+  return getLocalStorage("so-cart") || [];
+}
+
+/**
+ * Remove all items from the cart.
+ */
+export function clearCart() {
+  localStorage.removeItem("so-cart");
+}
