@@ -1,4 +1,9 @@
 import { getLocalStorage } from "./utils.mjs";
+import Alert from "./alert.js";
+
+const alertSystem = new Alert("/data/alerts.json");
+alertSystem.init();
+
 
 function updateCartCount() {
   const cart = getLocalStorage("so-cart") || [];

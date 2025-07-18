@@ -257,6 +257,15 @@ button {
   border-radius: 1rem;
 }
 
+.alert-list {
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.alert-list p {
+  font-size: 1rem;
+}
+
 @media screen and (min-width: 768px) {
   .product-detail {
     display: flex;
