@@ -1,3 +1,4 @@
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -12,7 +13,7 @@ export function getLocalStorage(key) {
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
-};
+}
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -20,39 +21,30 @@ export function setClick(selector, callback) {
     callback();
   });
   qs(selector).addEventListener("click", callback);
-};
+}
 
-// export function getParam(param) {
-//   const queryString = window.location.search;
-//   const urlParams = new URLSearchParams(queryString);
-//   const product = urlParams.get(param)
-//   return  product;
-  
-// }
-
+// get the product id from the query string
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  return urlParams.get(param);
+  const product = urlParams.get(param);
+  return product
 }
 
-
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
-  const htmlStrings = list.map(templateFn).join('');
-  if (clear) parentElement.innerHTML = "";
-
-  
-  parentElement.insertAdjacentHTML(position, htmlStrings);
+export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
+  const htmlStrings = list.map(template);
+  // if clear is true we need to clear out the contents of the parent.
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
-export function renderWithTemplate(templateFn, parentElement, data, callback) {
-  parentElement.innerHTML = templateFn;
-  
-  if(callback) {
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if (callback) {
     callback(data);
   }
-  
-  return urlParams.get(param); // uses the passed-in param!
 }
 
 async function loadTemplate(path) {
@@ -62,22 +54,12 @@ async function loadTemplate(path) {
 }
 
 export async function loadHeaderFooter() {
-  // Load templates
   const headerTemplate = await loadTemplate("../partials/header.html");
   const footerTemplate = await loadTemplate("../partials/footer.html");
 
-  // Get DOM placeholder elements
-  const headerElement = document.querySelector("#main-header");
-  const footerElement = document.querySelector("#main-footer");
+  const headerElement = document.querySelector("#header");
+  const footerElement = document.querySelector("#footer");
 
-  // Render into the DOM
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
-}
-
-export function getDiscountInfo(product) {
-  const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
-  const discountPercent = isDiscounted ? Math.round(((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice) * 100) : 0;
-
-  return { isDiscounted, discountPercent };
 }

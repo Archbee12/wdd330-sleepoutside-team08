@@ -4,30 +4,25 @@ function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error(`Fetch failed: ${res.status} ${res.statusText}`);
+    throw new Error("Bad Response");
   }
 }
 
 export default class ProductData {
-  constructor(category) {
-    this.category = category;
-    this.path = `../json/${this.category}.json`;
+  constructor() {
+    // this.category = category;
+    // this.path = `../public/json/${this.category}.json`;
   }
-
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then(data => data);
+  async getData(category) {
+    const response = await fetch(`${baseURL}products/search/${category}`);
+    const data = await convertToJson(response);
+    
+    return data.Result;
   }
-
   async findProductById(id) {
-    const products = await this.getData();
-    const product = products.find(item => item.Id === id); // FIXED: Use correct key
-
-    if (!product) {
-      console.warn(`Product with ID "${id}" not found in ${this.category}.json`);
-    }
-
-    return product;
+    const response = await fetch(`${baseURL}product/${id}`);
+    const data = await convertToJson(response);
+    console.log(data.Result);
+    return data.Result;
   }
 }
