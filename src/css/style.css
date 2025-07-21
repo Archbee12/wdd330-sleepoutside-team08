@@ -140,6 +140,79 @@ button {
 
 /* End cart icon styles */
 
+/* Checkout Page Layout */
+.checkout-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Form Styling */
+#checkout-form {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#checkout-form h2 {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+}
+
+#checkout-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+/* Input styling */
+#checkout-form input {
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Order Summary Styling */
+.order-summary {
+  flex: 1 1 250px;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.order-summary h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.order-summary p {
+  margin: 0.5rem 0;
+}
+
+/* Checkout Button */
+.checkout-button {
+  background-color: #333;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+  background-color: #555;
+}
+
+/* End Checkout Page Layout */
+
+/* Mission Section */
 .mission {
   position: absolute;
   top: 1rem;

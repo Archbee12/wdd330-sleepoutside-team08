@@ -58,7 +58,6 @@ function calculateCartTotal(cartItems) {
 }
 
 function renderCartTotal(cartItems) {
-  // First, remove any existing total summary section
   const existingSummary = document.querySelector(".cart-summary");
   if (existingSummary) {
     existingSummary.remove();
@@ -69,12 +68,20 @@ function renderCartTotal(cartItems) {
     <section class="cart-summary" style="text-align:right; margin: 2rem;">
       <hr />
       <p><strong>Total:</strong> $${total}</p>
+      <button id="checkout-btn" class="checkout-button">Proceed to Checkout</button>
     </section>
   `;
 
-  document
-    .querySelector(".products")
-    .insertAdjacentHTML("beforeend", summaryHTML);
+  document.querySelector(".products").insertAdjacentHTML("beforeend", summaryHTML);
+
+  const checkoutBtn = document.getElementById("checkout-btn");
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", () => {
+      if (confirm("Are you sure you want to proceed to checkout?")) {
+        window.location.href = "../checkout/index.html";
+      }
+    });
+  }
 }
 
 //  Step 4: Attach event listeners to quantity inputs
