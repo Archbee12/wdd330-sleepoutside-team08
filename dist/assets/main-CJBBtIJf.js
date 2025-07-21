@@ -1,0 +1,1 @@
+import{g as a,l as c}from"./utils-BGUWgxOt.js";function n(){const o=a("so-cart")||[],t=document.getElementById("cart-count"),e=o.length;e>0?(t.textContent=e,t.classList.remove("hide")):t.classList.add("hide")}c();n();

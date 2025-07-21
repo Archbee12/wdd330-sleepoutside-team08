@@ -2,8 +2,8 @@
 ## WDD 330 - Web Frontend Development II
 
 ### ⛺ SleepOutside Starter Code
-- https://ephemeral-cupcake-2293a4.netlify.app/
-🔗 [View Team 08 Live Site](https://ephemeral-cupcake-2293a4.netlify.app)
+- https://wdd330-sleepoutside-team08.netlify.app/
+🔗 [View Team 08 Live Site](https://wdd330-sleepoutside-team08.netlify.app/)
 
 
 
