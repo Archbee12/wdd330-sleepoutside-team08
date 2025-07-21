@@ -1,13 +1,11 @@
 import { updateCartCount } from "./CartCount.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  loadHeaderFooter();
-
-  updateCartCount();
-
-});
-
+// document.addEventListener("DOMContentLoaded", () => {
+  
+// });
 
 // Call this on load
+loadHeaderFooter();
+
+updateCartCount();
