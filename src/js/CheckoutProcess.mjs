@@ -49,7 +49,7 @@ export default class CheckoutProcess {
 
     summaryElement.innerHTML = this.list
       .map(item => {
-        return `<li>${item.Name} x${item.quantity} - $${(item.FinalPrice * item.quantity).toFixed(2)}</li>`;
+        return `<li>${item.Name} [${item.quantity}pcs] - $${(item.FinalPrice * item.quantity).toFixed(2)}</li>`;
       })
       .join('');
   }
