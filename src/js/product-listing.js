@@ -1,6 +1,6 @@
 import { getParam, loadHeaderFooter } from "./utils.mjs";
 import ProductList from "./ProductList.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import { updateCartCount } from "./CartCount.mjs";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const listElement = document.querySelector(".product-list");
 
   // Instantiate and initialize product list
-  const dataSource = new ProductData(category);
+  const dataSource = new ExternalServices(category);
   const productList = new ProductList(category, dataSource, listElement);
   productList.init();
 });

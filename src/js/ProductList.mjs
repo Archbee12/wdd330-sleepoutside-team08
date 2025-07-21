@@ -1,5 +1,5 @@
 import { renderListWithTemplate, getDiscountInfo } from './utils.mjs';
-import ProductData from './ProductData.mjs';
+import ExternalServices from './ExternalServices.mjs';
 
 function productCardTemplate(product) {
   const { isDiscounted, discountPercent } = getDiscountInfo(product);
@@ -40,12 +40,11 @@ class ProductList {
 
 export function renderProductList() {
   const category = 'tents';
-  const dataSource = new ProductData(); 
+  const dataSource = new ExternalServices(); 
   const listElement = document.querySelector('.product-list');
 
   const productList = new ProductList(category, dataSource, listElement);
   productList.init();
 }
-
 
 export default ProductList;

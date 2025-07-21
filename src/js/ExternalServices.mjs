@@ -2,7 +2,7 @@ import { convertToJson } from './utils.mjs';
 
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-export default class ProductData {
+export default class ExternalServices {
   async getData(category) {
     const response = await fetch(`${baseURL}products/search/${category}`);
     const data = await convertToJson(response);
