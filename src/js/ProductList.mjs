@@ -1,4 +1,5 @@
 import { renderListWithTemplate, getDiscountInfo } from './utils.mjs';
+import ProductData from './ProductData.mjs';
 
 function productCardTemplate(product) {
   const { isDiscounted, discountPercent } = getDiscountInfo(product);
@@ -20,7 +21,7 @@ function productCardTemplate(product) {
   `;
 }
 
-export default class ProductList {
+class ProductList {
   constructor(category, dataSource, listElement) {
     this.category = category;
     this.dataSource = dataSource;
@@ -28,7 +29,7 @@ export default class ProductList {
   }
 
   async init() {
-    const list = await this.dataSource.getData(this.category); // Pass category!
+    const list = await this.dataSource.getData(this.category);
     this.renderList(list);
   }
 
@@ -36,3 +37,15 @@ export default class ProductList {
     renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", false);
   }
 }
+
+export function renderProductList() {
+  const category = 'tents';
+  const dataSource = new ProductData(); 
+  const listElement = document.querySelector('.product-list');
+
+  const productList = new ProductList(category, dataSource, listElement);
+  productList.init();
+}
+
+
+export default ProductList;
