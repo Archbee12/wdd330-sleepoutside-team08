@@ -14,29 +14,37 @@ export default class CheckoutProcess {
   init() {
     this.list = getLocalStorage(this.key);
     this.calculateItemSubTotal();
+    this.calculateOrderTotal();
+    this.displayOrderSummary(); // 🆕 call to display HTML if needed
   }
 
   calculateItemSubTotal() {
-    const subtotalElement = document.querySelector(`${this.outputSelector} #subtotal`);
     this.itemTotal = this.list.reduce((total, item) => {
       return total + item.FinalPrice * item.quantity;
     }, 0);
-    subtotalElement.innerText = `$${this.itemTotal.toFixed(2)}`;
   }
 
   calculateOrderTotal() {
-    const shippingElement = document.querySelector(`${this.outputSelector} #shipping`);
-    const taxElement = document.querySelector(`${this.outputSelector} #tax`);
-    const orderTotalElement = document.querySelector(`${this.outputSelector} #order-total`);
-
     const itemCount = this.list.reduce((count, item) => count + item.quantity, 0);
 
     this.tax = this.itemTotal * 0.06;
-    this.shipping = 10 + (itemCount - 1) * 2;
+    this.shipping = itemCount > 0 ? 10 + (itemCount - 1) * 2 : 0;
     this.orderTotal = this.itemTotal + this.tax + this.shipping;
+  }
 
-    shippingElement.innerText = `$${this.shipping.toFixed(2)}`;
-    taxElement.innerText = `$${this.tax.toFixed(2)}`;
-    orderTotalElement.innerText = `$${this.orderTotal.toFixed(2)}`;
+  displayOrderSummary() {
+    const base = document.querySelector(this.outputSelector);
+
+    if (!base) return;
+
+    const subtotalElement = base.querySelector("#subtotal");
+    const shippingElement = base.querySelector("#shipping");
+    const taxElement = base.querySelector("#tax");
+    const orderTotalElement = base.querySelector("#order-total");
+
+    if (subtotalElement) subtotalElement.innerText = `$${this.itemTotal.toFixed(2)}`;
+    if (shippingElement) shippingElement.innerText = `$${this.shipping.toFixed(2)}`;
+    if (taxElement) taxElement.innerText = `$${this.tax.toFixed(2)}`;
+    if (orderTotalElement) orderTotalElement.innerText = `$${this.orderTotal.toFixed(2)}`;
   }
 }
