@@ -7,7 +7,7 @@ function productCardTemplate(product) {
     <li class="product-card">
       <a href="../product_pages/index.html?product=${product.Id}">
         <div class="product-card__image-wrapper">
-          <img src="${product.Image}" alt="${product.Name}">
+          <img src="${product.Images?.PrimaryMedium}" alt="${product.Name}">
           ${isDiscounted ? `<span class="discount-badge">${discountPercent}% OFF</span>` : ""}
         </div>
         <h2>${product.Brand.Name}</h2>
