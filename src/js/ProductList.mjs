@@ -5,7 +5,7 @@ function productCardTemplate(product) {
   const { isDiscounted, discountPercent } = getDiscountInfo(product);
   return `
     <li class="product-card">
-      <a href="../product_pages/product.html?product=${product.Id}">
+      <a href="../product_pages/index.html?product=${product.Id}">
         <div class="product-card__image-wrapper">
           <img src="${product.Image}" alt="${product.Name}">
           ${isDiscounted ? `<span class="discount-badge">${discountPercent}% OFF</span>` : ""}
