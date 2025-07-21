@@ -72,7 +72,9 @@ function renderCartTotal(cartItems) {
     </section>
   `;
 
-  document.querySelector(".products").insertAdjacentHTML("beforeend", summaryHTML);
+  document
+    .querySelector(".products")
+    .insertAdjacentHTML("beforeend", summaryHTML);
 
   const checkoutBtn = document.getElementById("checkout-btn");
   if (checkoutBtn) {
