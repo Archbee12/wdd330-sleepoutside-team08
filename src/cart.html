@@ -110,7 +110,7 @@
         border: 1px solid var(--light-grey);
         border-radius: 8px;
         background: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         align-items: center;
       }
 
@@ -323,17 +323,21 @@
         </ul>
 
         <!-- Empty cart message -->
-        <div class="empty-cart" id="empty-cart" style="display: none;">
+        <div class="empty-cart" id="empty-cart" style="display: none">
           <h3>Your cart is empty</h3>
           <p>Looks like you haven't added any items to your cart yet.</p>
-          <a href="../index.html" class="continue-shopping">Continue Shopping</a>
+          <a href="../index.html" class="continue-shopping"
+            >Continue Shopping</a
+          >
         </div>
 
         <!-- Cart summary -->
-        <div class="cart-summary" id="cart-summary" style="display: none;">
+        <div class="cart-summary" id="cart-summary" style="display: none">
           <h3>Order Summary</h3>
           <div class="cart-total" id="cart-total">Total: $0.00</div>
-          <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+          <button class="checkout-btn" onclick="checkout()">
+            Proceed to Checkout
+          </button>
         </div>
       </section>
     </main>
@@ -344,42 +348,46 @@
       // Sample cart data for demonstration
       let cartItems = [
         {
-          id: '344YJ',
-          name: 'Rimrock Tent - 2-Person, 3-Season',
-          brand: 'Cedar Ridge',
+          id: "344YJ",
+          name: "Rimrock Tent - 2-Person, 3-Season",
+          brand: "Cedar Ridge",
           price: 69.99,
-          color: 'Rust/Clay',
+          color: "Rust/Clay",
           quantity: 1,
-          image: '../images/tents/cedar-ridge-rimrock-tent-2-person-3-season-in-rust-clay~p~344yj_01~320.jpg'
+          image:
+            "../images/tents/cedar-ridge-rimrock-tent-2-person-3-season-in-rust-clay~p~344yj_01~320.jpg",
         },
         {
-          id: '985RF',
-          name: 'Talus Tent - 4-Person, 3-Season',
-          brand: 'The North Face',
+          id: "985RF",
+          name: "Talus Tent - 4-Person, 3-Season",
+          brand: "The North Face",
           price: 199.99,
-          color: 'Golden Oak/Saffron Yellow',
+          color: "Golden Oak/Saffron Yellow",
           quantity: 1,
-          image: '../images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg'
-        }
+          image:
+            "../images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg",
+        },
       ];
 
       function renderCart() {
-        const cartList = document.getElementById('cart-items');
-        const emptyCart = document.getElementById('empty-cart');
-        const cartSummary = document.getElementById('cart-summary');
-        const cartTotal = document.getElementById('cart-total');
+        const cartList = document.getElementById("cart-items");
+        const emptyCart = document.getElementById("empty-cart");
+        const cartSummary = document.getElementById("cart-summary");
+        const cartTotal = document.getElementById("cart-total");
 
         if (cartItems.length === 0) {
-          cartList.innerHTML = '';
-          emptyCart.style.display = 'block';
-          cartSummary.style.display = 'none';
+          cartList.innerHTML = "";
+          emptyCart.style.display = "block";
+          cartSummary.style.display = "none";
           return;
         }
 
-        emptyCart.style.display = 'none';
-        cartSummary.style.display = 'block';
+        emptyCart.style.display = "none";
+        cartSummary.style.display = "block";
 
-        cartList.innerHTML = cartItems.map(item => `
+        cartList.innerHTML = cartItems
+          .map(
+            (item) => `
           <li class="cart-card divider">
             <div class="cart-card__image">
               <img src="${item.image}" alt="${item.name}" />
@@ -394,25 +402,30 @@
             <p class="cart-card__price">$${item.price.toFixed(2)}</p>
             <button class="cart-card__remove" onclick="removeItem('${item.id}')">Remove</button>
           </li>
-        `).join('');
+        `,
+          )
+          .join("");
 
-        const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const total = cartItems.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0,
+        );
         cartTotal.textContent = `Total: $${total.toFixed(2)}`;
       }
 
       function removeItem(itemId) {
-        cartItems = cartItems.filter(item => item.id !== itemId);
+        cartItems = cartItems.filter((item) => item.id !== itemId);
         renderCart();
       }
 
       function checkout() {
-        alert('Redirecting to checkout... (This is a demo)');
+        alert("Redirecting to checkout... (This is a demo)");
       }
 
       // Load cart on page load
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
         // Try to load cart from localStorage
-        const savedCart = localStorage.getItem('cart');
+        const savedCart = localStorage.getItem("cart");
         if (savedCart) {
           cartItems = JSON.parse(savedCart);
         }
@@ -421,7 +434,7 @@
 
       // Save cart to localStorage whenever it changes
       function saveCart() {
-        localStorage.setItem('cart', JSON.stringify(cartItems));
+        localStorage.setItem("cart", JSON.stringify(cartItems));
       }
     </script>
   </body>
