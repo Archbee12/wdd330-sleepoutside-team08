@@ -14,7 +14,7 @@ function renderCartContents() {
   document.querySelector(".product-list").innerHTML = htmlItems;
 
   renderCartTotal(cartItems);
-  attachQuantityListeners(); //  Attach quantity change listeners
+  attachquantityListeners(); //  Attach quantity change listeners
   attachRemoveListeners(); //  Attach remove button functionality
 }
 
@@ -51,7 +51,7 @@ function cartItemTemplate(item) {
 //  Step 3: Recalculate totals based on Quantity
 function calculateCartTotal(cartItems) {
   const total = cartItems.reduce(
-    (sum, item) => sum + item.FinalPrice * (item.Quantity || 1),
+    (sum, item) => sum + item.FinalPrice * (item.quantity || 1),
     0,
   );
   return total.toFixed(2);
@@ -87,7 +87,7 @@ function renderCartTotal(cartItems) {
 }
 
 //  Step 4: Attach event listeners to quantity inputs
-function attachQuantityListeners() {
+function attachquantityListeners() {
   document.querySelectorAll(".quantity-input").forEach((input) => {
     input.addEventListener("change", (event) => {
       const newQty = parseInt(event.target.value);

@@ -11,7 +11,7 @@ function u() {
   (document.querySelector(".product-list").innerHTML = e), d(t), f(), p();
 }
 function y(t) {
-  const e = t.Quantity || 1,
+  const e = t.quantity || 1,
     a = (t.FinalPrice * e).toFixed(2);
   return `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
@@ -38,7 +38,7 @@ function y(t) {
   </li>`;
 }
 function g(t) {
-  return t.reduce((a, r) => a + r.FinalPrice * (r.Quantity || 1), 0).toFixed(2);
+  return t.reduce((a, r) => a + r.FinalPrice * (r.quantity || 1), 0).toFixed(2);
 }
 function d(t) {
   const e = document.querySelector(".cart-summary");
@@ -63,7 +63,7 @@ function f() {
       let c = s("so-cart") || [];
       const o = c.findIndex((n) => n.Id === r);
       if (o > -1) {
-        (c[o].Quantity = a), i("so-cart", c);
+        (c[o].quantity = a), i("so-cart", c);
         const n = t.closest(".cart-card").querySelector(".cart-card__subtotal"),
           m = (c[o].FinalPrice * a).toFixed(2);
         n.textContent = `Subtotal: $${m}`;

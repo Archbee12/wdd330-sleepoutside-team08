@@ -20,8 +20,8 @@ class y {
     let t = m("so-cart") || [];
     const e = t.findIndex((o) => o.Id === this.product.Id);
     e > -1
-      ? (t[e].Quantity = (t[e].Quantity || 1) + 1)
-      : ((this.product.Quantity = 1), t.push(this.product)),
+      ? (t[e].quantity = (t[e].quantity || 1) + 1)
+      : ((this.product.quantity = 1), t.push(this.product)),
       h("so-cart", t);
   }
   renderProductDetails() {

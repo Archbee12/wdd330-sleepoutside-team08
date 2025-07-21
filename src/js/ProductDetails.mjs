@@ -30,9 +30,9 @@ export default class ProductDetails {
     const existingItemIndex = cart.findIndex(item => item.Id === this.product.Id);
 
     if (existingItemIndex > -1) {
-      cart[existingItemIndex].Quantity = (cart[existingItemIndex].Quantity || 1) + 1;
+      cart[existingItemIndex].quantity = (cart[existingItemIndex].quantity || 1) + 1;
     } else {
-      this.product.Quantity = 1;
+      this.product.quantity = 1;
       cart.push(this.product);
     }
 
