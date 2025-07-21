@@ -76,7 +76,7 @@ export default class ProductDetails {
 
     const imageEl = document.getElementById("productImage");
     if (imageEl) {
-      imageEl.src = this.product.Image || "../images/default.jpg";
+      imageEl.src = this.product.Images?.PrimaryLarge || "../images/default.jpg";
       imageEl.alt = this.product.NameWithoutBrand || this.product.Name;
     }
 
