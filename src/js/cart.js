@@ -20,7 +20,7 @@ function renderCartContents() {
 
 //  Step 2: Add quantity input field and remove button in the template
 function cartItemTemplate(item) {
-  const quantity = item.Quantity || 1;
+  const quantity = item.Quantity || item.quantity || 1;
   const itemSubtotal = (item.FinalPrice * quantity).toFixed(2);
 
   return `<li class="cart-card divider">
