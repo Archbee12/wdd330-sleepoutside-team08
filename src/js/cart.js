@@ -10,9 +10,15 @@ function renderCartContents() {
   document.querySelectorAll(".remove-btn").forEach((icon) => {
     icon.addEventListener("click", () => {
       const removeId = icon.dataset.id;
-      let cart = getLocalStorage("so-cart") || [];
+      let cartItems = getLocalStorage("so-cart") || [];
 
-      cart = cart.filter((item) => item.Id !== removeId);
+      cartItems = cartItems.map((item) => {
+        if (item.Id === removeId) {
+          item.quantity = (item.quantity || 1) -1;
+        }
+
+        return item;
+      }).filter(item => item.quantity > 0);
 
       localStorage.setItem("so-cart", JSON.stringify(cart));
 
@@ -28,12 +34,12 @@ function updateCartTotal(cartItems) {
 
   if (cartItems.length > 0) {
     const total = cartItems.reduce((sum, item) => {
-      const quantity = 1;
+      const quantity = item.quantity || 1;
       return sum + item.FinalPrice * quantity;
     }, 0);
 
     cartFooter.classList.remove("hide");
-    cartTotal.innerHTML = `<h3>Total: $${total}</h3>`;
+    cartTotal.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
   } else {
     cartFooter.classList.add("hide");
   }
@@ -52,7 +58,7 @@ function cartItemTemplate(item) {
       <h2 class="card__name">${item.Name}</h2>
     </a>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <p class="cart-card__quantity">qty: 1</p>
+    <p class="cart-card__quantity">Qty: ${item.quantity || 1}</p>
     <p class="cart-card__price">$${item.FinalPrice}</p>
   </li>`;
 
