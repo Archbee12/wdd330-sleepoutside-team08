@@ -1,5 +1,9 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
+if (!baseURL) {
+  console.error("❌ VITE_SERVER_URL is not defined!");
+}
+
 function convertToJson(res) {
   if (res.ok) {
     return res.json();

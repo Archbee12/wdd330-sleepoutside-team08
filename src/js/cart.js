@@ -9,8 +9,14 @@ function renderCartContents() {
 
   document.querySelectorAll(".remove-btn").forEach((icon) => {
     icon.addEventListener("click", () => {
-      // const id = icon.dataset.id;
-      // removeFromCart(id);
+      const removeId = icon.dataset.id;
+      let cart = getLocalStorage("so-cart") || [];
+
+      cart = cart.filter(item => item.Id !== removeId);
+
+      localStorage.setItem("so-cart", JSON.stringify(cart));
+
+      renderCartContents();
     });
   });
   updateCartTotal(cartItems);
@@ -35,6 +41,7 @@ function updateCartTotal(cartItems) {
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider" data-id="${item.Id}">
+    <span class="remove-btn" data-id="${item.Id}">❌</span>
     <a href="#" class="cart-card__image">
       <img
         src="${item.Image}"
