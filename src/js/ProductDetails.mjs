@@ -1,7 +1,5 @@
 import { getLocalStorage, setLocalStorage, getDiscountInfo } from "./utils.mjs";
 
-
-
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
@@ -11,7 +9,6 @@ export default class ProductDetails {
 
   async init () {
     this.product = await this.dataSource.findProductById(this.productId);
-    // console.log("Product ID:", this.productId);
 
     this.renderProductDetails();
 

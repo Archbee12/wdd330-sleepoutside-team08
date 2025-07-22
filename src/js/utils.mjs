@@ -2,13 +2,12 @@
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
@@ -47,6 +46,12 @@ export function renderWithTemplate(template, parentElement, data, callback) {
   }
 }
 
+// convert fetch response to JSON
+export function convertToJson(response) {
+  return response.json();
+}
+
+// load HTML template as text
 async function loadTemplate(path) {
   const res = await fetch(path);
   const template = await res.text();
@@ -68,9 +73,24 @@ export async function loadHeaderFooter() {
 
 }
 
+// calculate discount info for a product
 export function getDiscountInfo(product) {
   const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
-  const discountPercent = isDiscounted ? Math.round(((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice) * 100) : 0;
+  const discountPercent = isDiscounted
+    ? Math.round(((product.SuggestedRetailPrice - product.FinalPrice) / product.SuggestedRetailPrice) * 100)
+    : 0;
 
   return { isDiscounted, discountPercent };
+}
+
+// convert a form element into a JSON object
+export function formDataToJSON(formElement) {
+  const formData = new FormData(formElement);
+  const jsonObject = {};
+
+  for (const [key, value] of formData.entries()) {
+    jsonObject[key] = value;
+  }
+
+  return jsonObject;
 }

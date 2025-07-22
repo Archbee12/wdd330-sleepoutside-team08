@@ -2,6 +2,7 @@ import { loadHeaderFooter, getParam } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 // import ProductList from "./ProductList.mjs";
 import ProductDetails from "./ProductDetails.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 
 loadHeaderFooter();
 
