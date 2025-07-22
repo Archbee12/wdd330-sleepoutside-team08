@@ -1,6 +1,7 @@
 import { loadHeaderFooter, getLocalStorage } from "./utils.mjs";
-
+// import { updateCartCount } from "./CartCount.mjs";
 loadHeaderFooter();
+// updateCartCount();
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
@@ -20,11 +21,47 @@ function renderCartContents() {
         return item;
       }).filter(item => item.quantity > 0);
 
-      localStorage.setItem("so-cart", JSON.stringify(cart));
+      localStorage.setItem("so-cart", JSON.stringify(cartItems));
 
       renderCartContents();
     });
   });
+
+  document.querySelectorAll(".increase").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      let cart = getLocalStorage("so-cart") || [];
+
+      cart = cart.map((item) => {
+        if (item.Id == id) {
+          item.quantity = (item.quantity || 1) + 1;
+        }
+        return item;
+      });
+
+      localStorage.setItem("so-cart", JSON.stringify(cart));
+      renderCartContents();
+    });
+  });
+
+  document.querySelectorAll(".decrease").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      let cart = getLocalStorage("so-cart") || [];
+
+      cart = cart.map((item) => {
+        if (item.Id == id) {
+          item.quantity = (item.quantity || 1) - 1;
+        }
+        return item;
+      });
+
+      localStorage.setItem("so-cart", JSON.stringify(cart));
+      renderCartContents();
+    });
+  });
+
+ 
   updateCartTotal(cartItems);
 }
 
@@ -58,8 +95,12 @@ function cartItemTemplate(item) {
       <h2 class="card__name">${item.Name}</h2>
     </a>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <p class="cart-card__quantity">Qty: ${item.quantity || 1}</p>
-    <p class="cart-card__price">$${item.FinalPrice}</p>
+    <div class="quantity-controls">
+      <button class="decrease" data-id="${item.Id}">-</button>
+      <span class="cart-card__quantity">Qty: ${item.quantity || 1}</span>
+      <button class="increase" data-id="${item.Id}">+</button>
+    </div>
+    <p class="cart-card__price">$${(item.FinalPrice * (item.quantity || 1)).toFixed(2)}</p>
   </li>`;
 
   return newItem;

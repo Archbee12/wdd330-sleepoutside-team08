@@ -23,10 +23,10 @@ export default class ProductDetails {
   addProductToCart(product) {
     let cart = getLocalStorage("so-cart") || [];
 
-    const cartItems = cart.find(item => item.Id === this.product.Id);
+    const existingItems = cart.find(item => item.Id === this.product.Id);
     
-    if (cartItems) {
-      cartItems.quantity += 1;
+    if (existingItems) {
+      existingItems.quantity = (existingItems.quantity || 1) + 1;
     }
 
     else {
@@ -34,10 +34,9 @@ export default class ProductDetails {
       cart.push(this.product);
     }
 
-    cart.push(this.product);
-    setLocalStorage("so-cart", cart);
-
     updateCartCount();
+
+    setLocalStorage("so-cart", cart);
 
   }
 
