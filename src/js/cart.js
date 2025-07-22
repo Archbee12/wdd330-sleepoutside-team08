@@ -12,7 +12,7 @@ function renderCartContents() {
       const removeId = icon.dataset.id;
       let cart = getLocalStorage("so-cart") || [];
 
-      cart = cart.filter(item => item.Id !== removeId);
+      cart = cart.filter((item) => item.Id !== removeId);
 
       localStorage.setItem("so-cart", JSON.stringify(cart));
 
