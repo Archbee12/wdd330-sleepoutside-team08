@@ -45,7 +45,7 @@ export default class ProductDetails {
     document.querySelector('h3').textContent = this.product.NameWithoutBrand;
 
     const productImage = document.getElementById('productImage');
-    productImage.src = this.product.Image;
+    productImage.src = this.product.Images.PrimaryMedium;
     productImage.alt = this.product.NameWithoutBrand;
 
     
