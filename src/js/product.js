@@ -1,21 +1,18 @@
-import { getParam } from "./utils.mjs";
+import { loadHeaderFooter, getParam } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
+// import ProductList from "./ProductList.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const productId = getParam("product");
-  const dataSource = new ProductData("tents");
-  const product = new ProductDetails(productId, dataSource);
+loadHeaderFooter();
 
-  // Display loading text only, don't replace the entire <main>
-  const loadingEl = document.createElement("p");
-  loadingEl.textContent = "⏳ Loading product...";
-  loadingEl.style.textAlign = "center";
-  document.querySelector("main").appendChild(loadingEl);
+const dataSource = new ProductData("tents");
+const productID = getParam("products");
 
-  if (productId) {
-    product.init().then(() => {
-      loadingEl.remove(); // Remove loading once product is rendered
-    });
-  }
-});
+const listing = new ProductDetails(productID, dataSource);
+
+// const category = getParam("category");
+// const dataSource = new ProductData();
+// const element = document.querySelector(".product-list");
+// const listing = new ProductList(category, dataSource, element);
+
+listing.init();

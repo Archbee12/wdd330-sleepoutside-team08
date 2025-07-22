@@ -9,52 +9,40 @@ export default class ProductDetails {
     this.dataSource = dataSource;
   }
 
-  async init() {
+  async init () {
     this.product = await this.dataSource.findProductById(this.productId);
     // console.log("Product ID:", this.productId);
 
-    if (!this.product) {
-      document.querySelector("main").innerHTML = `
-        <h2 style="text-align:center; padding:2rem;">Product not found.</h2>`;
-      return;
-    }
-
     this.renderProductDetails();
 
-    const addToCartBtn = document.getElementById("addToCart");
-    if (addToCartBtn) {
-      addToCartBtn.addEventListener("click", this.addProductToCart.bind(this));
-    }
+    document.getElementById('addToCart')
+      .addEventListener('click', this.addProductToCart.bind(this));
   }
 
   addProductToCart() {
     let cart = getLocalStorage("so-cart") || [];
-
-    // Check if item is already in cart
-    const existingItemIndex = cart.findIndex(item => item.Id === this.product.Id);
-
-    if (existingItemIndex > -1) {
-      // Increment quantity
-      cart[existingItemIndex].Quantity = (cart[existingItemIndex].Quantity || 1) + 1;
-    } else {
-      // Add new item with quantity 1
-      this.product.Quantity = 1;
-      cart.push(this.product);
-    }
-
+    cart.push(this.product);
     setLocalStorage("so-cart", cart);
   }
 
   renderProductDetails() {
-    const brandEl = document.getElementById("productBrand");
-    if (brandEl) {
-      brandEl.textContent = this.product.Brand?.Name || "Brand Not Found";
+
+    const { isDiscounted, discountPercent } = getDiscountInfo(this.product);
+
+
+    if (!this.product || !this.product.Brand || !this.product.Brand.Name) {
+      
+      return;
     }
 
-    const nameEl = document.getElementById("productName");
-    if (nameEl) {
-      nameEl.textContent = this.product.NameWithoutBrand || this.product.Name || "Product Name";
-    }
+    
+
+    document.querySelector('h2').textContent = this.product.Brand.Name;
+    document.querySelector('h3').textContent = this.product.NameWithoutBrand;
+
+    const productImage = document.getElementById('productImage');
+    productImage.src = this.product.Image;
+    productImage.alt = this.product.NameWithoutBrand;
 
     
 
@@ -73,31 +61,8 @@ export default class ProductDetails {
     
     document.querySelector('#productColor').textContent = this.product.Colors[0].ColorName;
     document.querySelector('#productDesc').innerHTML = this.product.DescriptionHtmlSimple;
-    const imageEl = document.getElementById("productImage");
-    if (imageEl) {
-      imageEl.src = this.product.Image || "../images/default.jpg";
-      imageEl.alt = this.product.NameWithoutBrand || this.product.Name;
-    }
 
-    const priceEl = document.querySelector("#productPrice");
-    if (priceEl) {
-      const price = parseFloat(this.product.FinalPrice) || 0;
-      priceEl.textContent = `$${price.toFixed(2)}`;
-    }
-
-    const colorEl = document.querySelector("#productColor");
-    if (colorEl) {
-      colorEl.textContent = this.product.Colors?.[0]?.ColorName || "Unknown";
-    }
-
-    const descEl = document.querySelector("#productDesc");
-    if (descEl) {
-      descEl.innerHTML = this.product.DescriptionHtmlSimple || "No description available.";
-    }
-
-    const addToCartBtn = document.getElementById("addToCart");
-    if (addToCartBtn) {
-      addToCartBtn.dataset.id = this.product.Id;
-    }
+    document.querySelector('#addToCart').dataset.id = this.product.Id;
   }
+  
 }

@@ -7,7 +7,7 @@ function productCardTemplate(product) {
     <li class="product-card">
       <a href="product_pages/?product=${product.Id}">
         <div class="product-card__image-wrapper">
-          <img src="${product.Image}" alt="${product.Name}">
+          <img src="${product.Images.PrimaryMedium}" alt="${product.Name}">
           ${isDiscounted ? `<span class="discount-badge">${discountPercent}% OFF</span>` : ""}
         </div>
         <h2>${product.Brand.Name}</h2>
@@ -26,15 +26,16 @@ export default class ProductList {
   }
 
   async init() {
-    const list = await this.dataSource.getData();
+    const list = await this.dataSource.getData(this.category);
     this.renderList(list);
+    document.querySelector(".title").textContent = this.category;
   }
 
   renderList(list) {
     // const htmlStrings = list.map(productCardTemplate);
     // this.listElement.insertAdjacentHTML('afterbegin', htmlStrings.join(''));
 
-    renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", false);
+    renderListWithTemplate(productCardTemplate, this.listElement, list);
   }
 }
 
