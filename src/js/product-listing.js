@@ -36,3 +36,20 @@ export default class ProductList {
   }
 
 }
+
+import { getProductsBySearch } from '../js/ExternalServices.mjs'; // or wherever your fetch functions live
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const params = new URLSearchParams(window.location.search);
+  const query = params.get('search');
+
+  if (query) {
+    try {
+      const products = await getProductsBySearch(query);
+      renderProductList(products); // your existing render function
+    } catch (err) {
+      console.error('Search failed', err);
+      document.querySelector('#product-list').innerHTML = `<p>No results found for "${query}"</p>`;
+    }
+  }
+});
