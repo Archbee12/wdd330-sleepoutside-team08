@@ -32,11 +32,16 @@ export default class ProductDetails {
     else {
       this.product.quantity = 1;
       cart.push(this.product);
+
+      // or this
+      // const addedProduct = { ...this.product, quantity: 1 };
+      // cart.push(addedProduct);
     }
+
+    setLocalStorage("so-cart", cart);
 
     updateCartCount();
 
-    setLocalStorage("so-cart", cart);
 
   }
 
@@ -70,7 +75,7 @@ export default class ProductDetails {
         <span class="original-price">$${this.product.SuggestedRetailPrice.toFixed(2)}</span>
       `;
     } else {
-      priceElement.textContent = `$${this.product.FinalPrice.toFixed(2)}`;
+      priceElement.textContent = `$${this.product?.FinalPrice.toFixed(2)}`;
     }
 
     

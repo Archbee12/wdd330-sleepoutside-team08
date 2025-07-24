@@ -1,5 +1,9 @@
 import { updateCartCount } from "./CartCount.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
+import Alert from "./Alert.mjs";
+
+const alert = new Alert("/json/alerts.json");
+alert.init();
 
 // loadHeaderFooter();
 // document.addEventListener("DOMContentLoaded", () => {

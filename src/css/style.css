@@ -312,7 +312,7 @@ p {
 
 /* Styles for product lists */
 .product-card {
-  flex: 1 1 45%;
+  flex: 1 1 100%;
   margin: 0.25em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
@@ -386,9 +386,13 @@ p {
 }
 
 .remove-btn {
+  width: 100px;
   grid-row: 3;
   grid-column: 3;
   cursor: pointer;
+  text-align: center;
+  /* background-color: var(--light-grey); */
+  padding: 0.5rem;
 }
 
 /* Make product images responsive */
@@ -436,6 +440,22 @@ p {
   text-align: right;
 }
 
+.cart-checkoutBtn {
+  display: block;
+  padding: 1rem;
+  background-color: #e7a864;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  place-self: center;
+}
+
+.cart-checkoutBtn a {
+  color: var(--dark-grey);
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
 /* Cart Count Styling */
 
 #cart-count {
@@ -461,19 +481,98 @@ p {
 }
 
 /* Cart Items Increment and Decrement Buttons*/
-.increase, .decrease {
-  padding: .35rem;
+.increase,
+.decrease {
+  padding: 0.35rem;
   flex: 1 1 auto;
-  margin: .5rem auto;
+  margin: 0.5rem auto;
 }
 
 .cart-card__quantity {
   flex: 2;
 }
 
+/* Alert Styling */
+.alert-message {
+  padding: 1rem;
+  margin: 0;
+}
+
+.alert-dark {
+  background-color: darkblue;
+  color: white;
+}
+
+.alert-warning {
+  background-color: darkred;
+  color: yellow;
+}
+
+/* Checkout Styling */
+form[name="checkout"] {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  font-family: system-ui, sans-serif;
+}
+
+fieldset {
+  border: none;
+  margin-bottom: 2rem;
+  padding: 0;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.checkout-summary .order__summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #0074d9;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #005fa3;
+}
+
 @media screen and (min-width: 768px) {
   .product-detail {
-    display: flex;
     gap: 2rem;
     align-items: flex-start;
     justify-content: center;

@@ -3,74 +3,76 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Sleep Outside | Checkout</title>
-
-    <script type="module" crossorigin src="/assets/checkout-DBKLa75J.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/utils-tpxFeyO2.js">
-    <link rel="modulepreload" crossorigin href="/assets/CartCount-DNxxCglR.js">
-    <link rel="modulepreload" crossorigin href="/assets/main-C_d8SJ0V.js">
-    <link rel="stylesheet" crossorigin href="/assets/utils-B6KH9p9w.css">
+    <script type="module" crossorigin src="/assets/checkout-D2OGvxrX.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/utils-0fv-Jyst.js">
+    <link rel="modulepreload" crossorigin href="/assets/ExternalServices-6QZDy1Qt.js">
+    <link rel="stylesheet" crossorigin href="/assets/utils-B6Gf6ZAM.css">
   </head>
 
   <body>
-    <header id="header" class="divider"></header>
-    <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
-      </section>
+    <header class="divider" id="header"></header>
 
+    <main class="divider checkout">
+      <h2>Review & Place your Order</h2>
       <section class="checkout-wrapper">
-        <form id="checkout-form">
-          <label
-            >First Name
-            <input type="text" id="first-name" name="fname" required
-          /></label>
-          <label
-            >Last Name <input type="text" id="last-name" name="lname" required
-          /></label>
-          <label
-            >Street Address
-            <input type="text" id="address" name="address" required
-          /></label>
-          <label
-            >City <input type="text" id="city" name="city" required
-          /></label>
-          <label
-            >State <input type="text" id="state" name="state" required
-          /></label>
-          <label
-            >Zip Code <input type="text" id="zip" name="zip" required
-          /></label>
+        <form name="checkout" id="checkout-form">
+          <input type="hidden" name="orderDate" id="orderDate" />
 
-          <label
-            >Credit Card Number
-            <input type="text" id="cc-number" name="cc-number" required
-          /></label>
-          <label
-            >Expiration Date
-            <input type="text" id="exp-date" name="exp-date" required
-          /></label>
-          <label
-            >Security Code <input type="text" id="cvv" name="cvv" required
-          /></label>
+          <fieldset>
+            <legend></legend>
+            <div class="checkout__name">
+              <label for="fname">First Name</label>
+              <input type="text" name="fname" id="fname" required />
+              <label for="lname">Last Name</label>
+              <input type="text" name="lname" id="lname" required />
+            </div>
+            <div class="checkout__address">
+              <label for="street">Street Address</label>
+              <input type="text" name="address" id="street" required />
+              <label for="city">City</label>
+              <input type="text" name="city" id="city" required />
+              <label for="state">State</label>
+              <input type="text" name="state" id="state" required />
+              <label for="zip">Zip</label>
+              <input type="text" name="zip" id="zip" required />
+            </div>
+          </fieldset>
 
-          <button type="submit" class="checkout-button">Checkout</button>
+          <fieldset>
+            <legend>Payment</legend>
+            <div class="checkout__payment">
+              <label for="cardNumber">Card Number</label>
+              <input type="text" name="cardNumber" id="cardNumber" required />
+              <label for="expiration">Expiration</label>
+              <input type="text" name="expiration" id="expiration" required />
+              <label for="code">CVV</label>
+              <input type="text" name="cvv" id="code" required />
+            </div>
+          </fieldset>
+
+          <fieldset class="order-summary">
+            <legend>Order Summary</legend>
+
+            <div>
+              <p>Subtotal: <span id="subtotal">$0.00</span></p>
+              <p>Tax (6%): <span id="tax">$0.00</span></p>
+              <p>Shipping: <span id="shipping">$0.00</span></p>
+              <p>
+                <strong
+                  >Order Total: <span id="order-total">$0.00</span></strong
+                >
+              </p>
+            </div>
+          </fieldset>
+          <button type="submit" id="checkoutSubmit">Proceed To Checkout</button>
         </form>
-
-        <aside class="order-summary">
-          <h2>Order Summary</h2>
-          <ul class="checkout-summary"></ul>
-          <p>Subtotal: <span id="subtotal">$0.00</span></p>
-          <p>Tax (6%): <span id="tax">$0.00</span></p>
-          <p>Shipping: <span id="shipping">$0.00</span></p>
-          <p>
-            <strong>Order Total: <span id="order-total">$0.00</span></strong>
-          </p>
-        </aside>
       </section>
+      <!-- 
+    <aside class="order-summary">
+      
+    </aside> -->
     </main>
 
     <footer id="footer"></footer>

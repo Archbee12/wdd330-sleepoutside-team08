@@ -83,14 +83,15 @@ export function getDiscountInfo(product) {
   return { isDiscounted, discountPercent };
 }
 
-// convert a form element into a JSON object
+
+
 export function formDataToJSON(formElement) {
-  const formData = new FormData(formElement);
-  const jsonObject = {};
+  const formData = new FormData(formElement),
+    convertedJSON = {};
 
-  for (const [key, value] of formData.entries()) {
-    jsonObject[key] = value;
-  }
+  formData.forEach(function (value, key) {
+    convertedJSON[key] = value;
+  });
 
-  return jsonObject;
+  return convertedJSON;
 }

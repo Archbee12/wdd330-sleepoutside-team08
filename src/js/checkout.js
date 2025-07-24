@@ -8,16 +8,9 @@ loadHeaderFooter();
 const checkout = new CheckoutProcess("so-cart", ".order-summary");
 checkout.init();
 
-// Wait until the DOM is fully loaded
+// Recalculate totals after ZIP code is entered
 document.addEventListener("DOMContentLoaded", () => {
   const zipInput = document.querySelector("#zip");
-
-  // ✅ Immediately recalculate total if ZIP has value (e.g., from autofill)
-  if (zipInput && zipInput.value) {
-    checkout.calculateOrderTotal();
-  }
-
-  // 📦 Recalculate totals after ZIP code is entered or changed
   if (zipInput) {
     zipInput.addEventListener("blur", () => {
       checkout.calculateOrderTotal();
@@ -25,20 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const checkoutForm = document.querySelector("#checkout-form");
-
-  // ✅ Hook up form submission
   if (checkoutForm) {
     checkoutForm.addEventListener("submit", (e) => {
-      e.preventDefault(); // Prevent actual form submission
-
-      // 🚫 If form is invalid
-      if (!checkoutForm.checkValidity()) {
+      if (!e.target.checkValidity()) {
+        e.preventDefault();
         alert("Please fill out all required fields.");
       } else {
-        // ✅ Run checkout logic
-        checkout.checkout(e.target);
+        e.preventDefault(); // just for demo/testing
         alert("Order Submitted!");
+        // console.log("Final order data:", order);
       }
     });
+  } else {
+    // do nothing
   }
 });
