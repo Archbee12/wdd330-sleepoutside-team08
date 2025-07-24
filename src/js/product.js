@@ -3,7 +3,20 @@ import ExternalServices from "./ExternalServices.mjs";
 // import ProductList from "./ProductList.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-loadHeaderFooter();
+
+loadHeaderFooter().then(() => {
+  const searchForm = document.getElementById("searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = document.getElementById("searchInput").value.trim();
+      if (query) {
+        // Redirect to the product listing page with search query
+        window.location.href = `/product-listing.html?search=${encodeURIComponent(query)}`;
+      }
+    });
+  }
+});
 
 const dataSource = new ExternalServices();
 const productID = getParam("product");

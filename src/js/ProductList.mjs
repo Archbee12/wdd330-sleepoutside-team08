@@ -26,12 +26,37 @@ class ProductList {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.products = [];
   }
 
+  // async init() {
+  //   const list = await this.dataSource.getData(this.category);
+  //   this.renderList(list);
+  //   document.querySelector(".title").textContent = this.category;
+  // }
+
   async init() {
-    const list = await this.dataSource.getData(this.category);
-    this.renderList(list);
-    document.querySelector(".title").textContent = this.category;
+    const params = new URLSearchParams(window.location.search);
+    const searchTerm = params.get("search");
+    let list = [];
+
+    if (searchTerm) {
+      // If search param is present, search using the API
+      document.querySelector(".title").textContent = `Search results for "${searchTerm}"`;
+      list = await this.dataSource.searchProducts(searchTerm);
+    } else {
+      // Default category-based product list
+      list = await this.dataSource.getData(this.category);
+      document.querySelector(".title").textContent = this.category;
+    }
+
+    
+
+    if (list.length === 0) {
+      this.listElement.innerHTML = "<p>No products found.</p>";
+    } else {
+      this.renderList(list);
+    }
   }
 
   renderList(list) {

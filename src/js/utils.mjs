@@ -95,3 +95,16 @@ export function formDataToJSON(formElement) {
 
   return convertedJSON;
 }
+
+export function initSearchBar() {
+  const searchForm = document.getElementById("searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = document.getElementById("searchInput").value.trim();
+      if (query) {
+        window.location.href = `/product-listing.html?search=${encodeURIComponent(query)}`;
+      }
+    });
+  }
+}

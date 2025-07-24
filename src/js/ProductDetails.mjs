@@ -1,14 +1,28 @@
 import { getLocalStorage, setLocalStorage, getDiscountInfo, loadHeaderFooter } from "./utils.mjs";
 import { updateCartCount } from "./CartCount.mjs";
 
-loadHeaderFooter();
 
+loadHeaderFooter().then(() => {
+  const searchForm = document.getElementById("searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = document.getElementById("searchInput").value.trim();
+      if (query) {
+        // Redirect to the product listing page with search query
+        window.location.href = `/product-listing.html?search=${encodeURIComponent(query)}`;
+      }
+    });
+  }
+});
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
     this.product = {};
     this.dataSource = dataSource;
+    // console.log("Loaded Product ID:", this.productId);
+
   }
 
   async init () {
