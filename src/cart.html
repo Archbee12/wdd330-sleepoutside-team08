@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Outside | Cart</title>
+    <title>Sleep Outside | Product with Comments</title>
     <style>
       :root {
         --font-body: Arial, Helvetica, sans-serif;
@@ -28,6 +28,7 @@
         font-family: var(--font-body);
         font-size: var(--font-base);
         color: var(--dark-grey);
+        background-color: #f8f9fa;
       }
 
       .divider {
@@ -39,6 +40,7 @@
         justify-content: space-between;
         padding: 0.5rem;
         align-items: center;
+        background: white;
       }
 
       .logo {
@@ -83,126 +85,52 @@
       }
 
       main {
+        max-width: 1200px;
+        margin: 0 auto;
         padding: 2rem;
         min-height: 60vh;
       }
 
-      .products h2 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-        color: var(--secondary-color);
-        text-align: center;
-      }
-
-      .product-list {
-        list-style: none;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      .cart-card {
-        display: grid;
-        grid-template-columns: 120px 1fr auto auto;
-        grid-template-rows: auto auto;
-        gap: 1rem;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        border: 1px solid var(--light-grey);
-        border-radius: 8px;
+      .product-detail {
         background: white;
+        border-radius: 8px;
+        padding: 2rem;
+        margin-bottom: 2rem;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        align-items: center;
       }
 
-      .cart-card__image {
-        grid-row: 1/3;
-        grid-column: 1;
+      .product-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
       }
 
-      .cart-card__image img {
+      .product-image img {
         width: 100%;
         height: auto;
-        border-radius: 4px;
-      }
-
-      .cart-card__name {
-        grid-row: 1;
-        grid-column: 2;
-        font-size: 1.1rem;
-        margin: 0;
-      }
-
-      .cart-card__name a {
-        text-decoration: none;
-        color: var(--dark-grey);
-      }
-
-      .cart-card__name a:hover {
-        color: var(--tertiary-color);
-      }
-
-      .cart-card__color {
-        grid-row: 2;
-        grid-column: 2;
-        color: #666;
-        margin: 0;
-        font-size: 0.9rem;
-      }
-
-      .cart-card__quantity {
-        grid-row: 1;
-        grid-column: 3;
-        font-weight: bold;
-        margin: 0;
-      }
-
-      .cart-card__price {
-        grid-row: 2;
-        grid-column: 3;
-        font-weight: bold;
-        color: var(--secondary-color);
-        font-size: 1.1rem;
-        margin: 0;
-      }
-
-      .cart-card__remove {
-        grid-row: 1/3;
-        grid-column: 4;
-        background: #dc3545;
-        color: white;
-        border: none;
-        padding: 0.5rem;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.8rem;
-      }
-
-      .cart-card__remove:hover {
-        background: #c82333;
-      }
-
-      .cart-summary {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 1.5rem;
-        background: #f8f9fa;
         border-radius: 8px;
-        text-align: right;
       }
 
-      .cart-summary h3 {
-        margin-bottom: 1rem;
+      .product-info h1 {
         color: var(--secondary-color);
+        margin-bottom: 1rem;
+        font-size: 2rem;
       }
 
-      .cart-total {
-        font-size: 1.3rem;
+      .product-price {
+        font-size: 1.5rem;
         font-weight: bold;
-        color: var(--secondary-color);
+        color: var(--tertiary-color);
         margin-bottom: 1rem;
       }
 
-      .checkout-btn {
+      .product-description {
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .add-to-cart {
         background: var(--secondary-color);
         color: white;
         border: none;
@@ -213,38 +141,166 @@
         transition: background 0.3s ease;
       }
 
-      .checkout-btn:hover {
+      .add-to-cart:hover {
         background: var(--tertiary-color);
       }
 
-      .empty-cart {
-        text-align: center;
-        padding: 3rem;
+      /* Comments Section Styles */
+      .comments-section {
+        background: white;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
-      .empty-cart h3 {
+      .comments-header {
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .comments-header h2 {
+        color: var(--secondary-color);
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .comments-count {
+        color: #666;
+        font-size: 1rem;
+      }
+
+      /* Add Comment Form */
+      .add-comment-form {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        border: 1px solid var(--light-grey);
+      }
+
+      .add-comment-form h3 {
         color: var(--secondary-color);
         margin-bottom: 1rem;
       }
 
-      .empty-cart p {
-        color: #666;
-        margin-bottom: 2rem;
+      .form-group {
+        margin-bottom: 1rem;
       }
 
-      .continue-shopping {
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: var(--dark-grey);
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid var(--light-grey);
+        border-radius: 4px;
+        font-size: 1rem;
+        font-family: var(--font-body);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(240, 168, 104, 0.2);
+      }
+
+      .submit-comment {
         background: var(--primary-color);
         color: var(--dark-grey);
-        text-decoration: none;
-        padding: 1rem 2rem;
+        border: none;
+        padding: 0.8rem 1.5rem;
         border-radius: 4px;
-        display: inline-block;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
         transition: background 0.3s ease;
       }
 
-      .continue-shopping:hover {
+      .submit-comment:hover {
         background: var(--tertiary-color);
         color: white;
+      }
+
+      .submit-comment:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+
+      /* Comments List */
+      .comments-list {
+        list-style: none;
+      }
+
+      .comment-item {
+        border-bottom: 1px solid #e9ecef;
+        padding: 1.5rem 0;
+      }
+
+      .comment-item:last-child {
+        border-bottom: none;
+      }
+
+      .comment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.8rem;
+      }
+
+      .comment-author {
+        font-weight: bold;
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+      }
+
+      .comment-date {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .comment-text {
+        line-height: 1.6;
+        color: var(--dark-grey);
+      }
+
+      .no-comments {
+        text-align: center;
+        padding: 2rem;
+        color: #666;
+        font-style: italic;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+
+        main {
+          padding: 1rem;
+        }
+
+        .product-detail,
+        .comments-section {
+          padding: 1rem;
+        }
+
+        .add-comment-form {
+          padding: 1rem;
+        }
       }
 
       footer {
@@ -253,44 +309,7 @@
         text-align: center;
         padding: 1rem;
         font-size: var(--small-font);
-      }
-
-      @media (max-width: 768px) {
-        .cart-card {
-          grid-template-columns: 80px 1fr;
-          grid-template-rows: auto auto auto auto;
-        }
-
-        .cart-card__image {
-          grid-row: 1/3;
-          grid-column: 1;
-        }
-
-        .cart-card__name {
-          grid-row: 1;
-          grid-column: 2;
-        }
-
-        .cart-card__color {
-          grid-row: 2;
-          grid-column: 2;
-        }
-
-        .cart-card__quantity {
-          grid-row: 3;
-          grid-column: 1/3;
-        }
-
-        .cart-card__price {
-          grid-row: 4;
-          grid-column: 1;
-        }
-
-        .cart-card__remove {
-          grid-row: 4;
-          grid-column: 2;
-          justify-self: end;
-        }
+        margin-top: 2rem;
       }
     </style>
   </head>
@@ -301,7 +320,7 @@
         <a href="../index.html"> Sleep<span class="highlight">Outside</span></a>
       </div>
       <div class="cart">
-        <a href="index.html">
+        <a href="cart/index.html">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
             <path
               d="M18.9 32.6c1.1 2.4 2.5 3.3 5.4 3.3 1.6 0 3.6-0.3 5.9-0.6 3.2-0.5 6.9-1 11.2-1 2.1 0 4.3 0.1 6.4 0.3 2.1 0.1 4.2 0.3 6.1 0.3 3.2 0 5.2-0.4 5.9-1.2 2.7-2.7 2.8-8.8 2.9-14.6 0.1-6.7 0.2-14.5 4.6-18.7 -0.5 0-1 0-1.6 0 -14.2 0-37.5 0-41.1 0C15.6 6.2 14.9 23.6 18.9 32.6z"
@@ -315,29 +334,61 @@
     </header>
 
     <main class="divider">
-      <section class="products">
-        <h2>My Cart</h2>
+      <!-- Sample Product Detail -->
+      <section class="product-detail">
+        <div class="product-grid">
+          <div class="product-image">
+            <img src="../images/tents/cedar-ridge-rimrock-tent-2-person-3-season-in-rust-clay~p~344yj_01~320.jpg" alt="Cedar Ridge Rimrock Tent" />
+          </div>
+          <div class="product-info">
+            <h1>Rimrock Tent - 2-Person, 3-Season</h1>
+            <p class="product-price">$69.99</p>
+            <div class="product-description">
+              <p>The Cedar Ridge Rimrock Tent is perfect for backpacking adventures. This lightweight, 3-season tent comfortably sleeps 2 people and features excellent ventilation and weather protection.</p>
+              <p><strong>Features:</strong></p>
+              <ul>
+                <li>Lightweight aluminum poles</li>
+                <li>Full rainfly coverage</li>
+                <li>Two vestibules for gear storage</li>
+                <li>Color-coded setup</li>
+              </ul>
+            </div>
+            <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+          </div>
+        </div>
+      </section>
 
-        <ul class="product-list" id="cart-items">
-          <!-- Cart items will be dynamically loaded here -->
-        </ul>
-
-        <!-- Empty cart message -->
-        <div class="empty-cart" id="empty-cart" style="display: none">
-          <h3>Your cart is empty</h3>
-          <p>Looks like you haven't added any items to your cart yet.</p>
-          <a href="../index.html" class="continue-shopping"
-            >Continue Shopping</a
-          >
+      <!-- Comments Section -->
+      <section class="comments-section">
+        <div class="comments-header">
+          <h2>Customer Comments</h2>
+          <p class="comments-count" id="comments-count">0 comments</p>
         </div>
 
-        <!-- Cart summary -->
-        <div class="cart-summary" id="cart-summary" style="display: none">
-          <h3>Order Summary</h3>
-          <div class="cart-total" id="cart-total">Total: $0.00</div>
-          <button class="checkout-btn" onclick="checkout()">
-            Proceed to Checkout
-          </button>
+        <!-- Add Comment Form -->
+        <div class="add-comment-form">
+          <h3>Add Your Comment</h3>
+          <form id="comment-form">
+            <div class="form-group">
+              <label for="commenter-name">Your Name *</label>
+              <input type="text" id="commenter-name" name="name" required maxlength="50">
+            </div>
+            <div class="form-group">
+              <label for="comment-text">Your Comment *</label>
+              <textarea id="comment-text" name="comment" required maxlength="500" placeholder="Share your thoughts about this product..."></textarea>
+            </div>
+            <button type="submit" class="submit-comment">Post Comment</button>
+          </form>
+        </div>
+
+        <!-- Comments List -->
+        <div class="comments-container">
+          <ul class="comments-list" id="comments-list">
+            <!-- Comments will be dynamically loaded here -->
+          </ul>
+          <div class="no-comments" id="no-comments" style="display: none;">
+            <p>No comments yet. Be the first to share your thoughts!</p>
+          </div>
         </div>
       </section>
     </main>
@@ -345,97 +396,155 @@
     <footer>&copy; NOT a real business</footer>
 
     <script>
-      // Sample cart data for demonstration
-      let cartItems = [
-        {
-          id: "344YJ",
-          name: "Rimrock Tent - 2-Person, 3-Season",
-          brand: "Cedar Ridge",
-          price: 69.99,
-          color: "Rust/Clay",
-          quantity: 1,
-          image:
-            "../images/tents/cedar-ridge-rimrock-tent-2-person-3-season-in-rust-clay~p~344yj_01~320.jpg",
-        },
-        {
-          id: "985RF",
-          name: "Talus Tent - 4-Person, 3-Season",
-          brand: "The North Face",
-          price: 199.99,
-          color: "Golden Oak/Saffron Yellow",
-          quantity: 1,
-          image:
-            "../images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg",
-        },
-      ];
-
-      function renderCart() {
-        const cartList = document.getElementById("cart-items");
-        const emptyCart = document.getElementById("empty-cart");
-        const cartSummary = document.getElementById("cart-summary");
-        const cartTotal = document.getElementById("cart-total");
-
-        if (cartItems.length === 0) {
-          cartList.innerHTML = "";
-          emptyCart.style.display = "block";
-          cartSummary.style.display = "none";
-          return;
+      // Comments system
+      class CommentsSystem {
+        constructor(productId) {
+          this.productId = productId;
+          this.comments = this.loadComments();
+          this.init();
         }
 
-        emptyCart.style.display = "none";
-        cartSummary.style.display = "block";
-
-        cartList.innerHTML = cartItems
-          .map(
-            (item) => `
-          <li class="cart-card divider">
-            <div class="cart-card__image">
-              <img src="${item.image}" alt="${item.name}" />
-            </div>
-            <div class="cart-card__name">
-              <a href="../product_pages/${item.id.toLowerCase()}.html">
-                <h2>${item.name}</h2>
-              </a>
-            </div>
-            <p class="cart-card__color">${item.color}</p>
-            <p class="cart-card__quantity">qty: ${item.quantity}</p>
-            <p class="cart-card__price">$${item.price.toFixed(2)}</p>
-            <button class="cart-card__remove" onclick="removeItem('${item.id}')">Remove</button>
-          </li>
-        `,
-          )
-          .join("");
-
-        const total = cartItems.reduce(
-          (sum, item) => sum + item.price * item.quantity,
-          0,
-        );
-        cartTotal.textContent = `Total: $${total.toFixed(2)}`;
-      }
-
-      function removeItem(itemId) {
-        cartItems = cartItems.filter((item) => item.id !== itemId);
-        renderCart();
-      }
-
-      function checkout() {
-        alert("Redirecting to checkout... (This is a demo)");
-      }
-
-      // Load cart on page load
-      document.addEventListener("DOMContentLoaded", function () {
-        // Try to load cart from localStorage
-        const savedCart = localStorage.getItem("cart");
-        if (savedCart) {
-          cartItems = JSON.parse(savedCart);
+        init() {
+          this.renderComments();
+          this.setupEventListeners();
         }
-        renderCart();
+
+        setupEventListeners() {
+          const form = document.getElementById('comment-form');
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.addComment();
+          });
+        }
+
+        loadComments() {
+          const commentsKey = `comments_${this.productId}`;
+          const saved = JSON.parse(localStorage.getItem(commentsKey) || '[]');
+          return saved;
+        }
+
+        saveComments() {
+          const commentsKey = `comments_${this.productId}`;
+          localStorage.setItem(commentsKey, JSON.stringify(this.comments));
+        }
+
+        addComment() {
+          const nameInput = document.getElementById('commenter-name');
+          const commentInput = document.getElementById('comment-text');
+          
+          const name = nameInput.value.trim();
+          const text = commentInput.value.trim();
+
+          if (!name || !text) {
+            alert('Please fill in all required fields.');
+            return;
+          }
+
+          const comment = {
+            id: Date.now().toString(),
+            name: name,
+            text: text,
+            date: new Date().toISOString()
+          };
+
+          this.comments.unshift(comment); // Add to beginning of array
+          this.saveComments();
+          this.renderComments();
+
+          // Clear form
+          nameInput.value = '';
+          commentInput.value = '';
+
+          // Show success message
+          this.showMessage('Comment added successfully!', 'success');
+        }
+
+        renderComments() {
+          const commentsList = document.getElementById('comments-list');
+          const noComments = document.getElementById('no-comments');
+          const commentsCount = document.getElementById('comments-count');
+
+          // Update count
+          const count = this.comments.length;
+          commentsCount.textContent = `${count} comment${count !== 1 ? 's' : ''}`;
+
+          if (this.comments.length === 0) {
+            commentsList.innerHTML = '';
+            noComments.style.display = 'block';
+            return;
+          }
+
+          noComments.style.display = 'none';
+          
+          commentsList.innerHTML = this.comments.map(comment => `
+            <li class="comment-item">
+              <div class="comment-header">
+                <span class="comment-author">${this.escapeHtml(comment.name)}</span>
+                <span class="comment-date">${this.formatDate(comment.date)}</span>
+              </div>
+              <div class="comment-text">${this.escapeHtml(comment.text)}</div>
+            </li>
+          `).join('');
+        }
+
+        formatDate(dateString) {
+          const date = new Date(dateString);
+          const now = new Date();
+          const diffMs = now - date;
+          const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+          if (diffDays === 0) {
+            return 'Today';
+          } else if (diffDays === 1) {
+            return 'Yesterday';
+          } else if (diffDays < 7) {
+            return `${diffDays} days ago`;
+          } else {
+            return date.toLocaleDateString();
+          }
+        }
+
+        escapeHtml(text) {
+          const div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
+        }
+
+        showMessage(message, type) {
+          // Create and show a temporary message
+          const messageDiv = document.createElement('div');
+          messageDiv.textContent = message;
+          messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            background: ${type === 'success' ? '#28a745' : '#dc3545'};
+            color: white;
+            border-radius: 4px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+          `;
+          
+          document.body.appendChild(messageDiv);
+          
+          setTimeout(() => {
+            messageDiv.remove();
+          }, 3000);
+        }
+      }
+
+      // Sample data and functionality
+      function addToCart() {
+        alert('Product added to cart! (This is a demo)');
+      }
+
+      // Initialize comments system when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        // Use product ID from URL or default to demo product
+        const productId = '344YJ'; // This would normally come from the URL or product data
+        new CommentsSystem(productId);
       });
-
-      // Save cart to localStorage whenever it changes
-      function saveCart() {
-        localStorage.setItem("cart", JSON.stringify(cartItems));
-      }
     </script>
   </body>
 </html>
