@@ -571,6 +571,37 @@ button[type="submit"]:hover {
   background-color: #005fa3;
 }
 
+
+/* Sort Form Styling */
+.sort-container {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+  font-family: "Segoe UI", sans-serif;
+} 
+
+.sort-label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+#sort {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: white;
+  min-width: 200px;
+  transition: border-color 0.3s ease;
+}
+
+.sort-select:focus {
+  border-color: #0077cc;
+  outline: none;
+}
+
+
 @media screen and (min-width: 768px) {
   .product-detail {
     gap: 2rem;

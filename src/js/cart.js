@@ -1,6 +1,12 @@
-import { loadHeaderFooter, getLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter, getLocalStorage, initSearchBar } from "./utils.mjs";
 import { updateCartCount } from "./CartCount.mjs";
-loadHeaderFooter();
+// loadHeaderFooter();
+// initSearchBar();
+
+loadHeaderFooter().then(() => {
+  initSearchBar();      // ✅ Attaches search form listener
+  updateCartCount();    // ✅ Runs after header is injected
+});
 
 function renderCartContents() {
   let cartItems = getLocalStorage("so-cart") || [];

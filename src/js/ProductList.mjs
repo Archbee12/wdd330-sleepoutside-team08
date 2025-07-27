@@ -50,20 +50,41 @@ class ProductList {
       document.querySelector(".title").textContent = this.category;
     }
 
-    
+    this.products = list;
 
     if (list.length === 0) {
       this.listElement.innerHTML = "<p>No products found.</p>";
     } else {
       this.renderList(list);
     }
+
+    const sortList = document.getElementById("sort");
+    if (sortList) {
+      sortList.addEventListener("change", (e) => {
+        this.displaySortList(e.target.value);
+      });
+    }
+  }
+
+  displaySortList(sortType) {
+    let sorted = [...this.products];
+
+    if (sortType === "name") {
+      sorted.sort((a, b) => a.Name.localeCompare(b.Name));
+    }
+
+    else if (sortType === "price") {
+      sorted.sort((a, b) => a.FinalPrice - b.FinalPrice);
+    }
+
+    this.renderList(sorted);
   }
 
   renderList(list) {
     // const htmlStrings = list.map(productCardTemplate);
     // this.listElement.insertAdjacentHTML('afterbegin', htmlStrings.join(''));
 
-    renderListWithTemplate(productCardTemplate, this.listElement, list);
+    renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
   }
 }
 
