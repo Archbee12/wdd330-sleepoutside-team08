@@ -26,15 +26,65 @@ class ProductList {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.products = [];
   }
 
+  // async init() {
+  //   const list = await this.dataSource.getData(this.category);
+  //   this.renderList(list);
+  //   document.querySelector(".title").textContent = this.category;
+  // }
+
   async init() {
-    const list = await this.dataSource.getData(this.category);
-    this.renderList(list);
+    const params = new URLSearchParams(window.location.search);
+    const searchTerm = params.get("search");
+    let list = [];
+
+    if (searchTerm) {
+      // If search param is present, search using the API
+      document.querySelector(".title").textContent = `Search results for "${searchTerm}"`;
+      list = await this.dataSource.searchProducts(searchTerm);
+    } else {
+      // Default category-based product list
+      list = await this.dataSource.getData(this.category);
+      document.querySelector(".title").textContent = this.category;
+    }
+
+    this.products = list;
+
+    if (list.length === 0) {
+      this.listElement.innerHTML = "<p>No products found.</p>";
+    } else {
+      this.renderList(list);
+    }
+
+    const sortList = document.getElementById("sort");
+    if (sortList) {
+      sortList.addEventListener("change", (e) => {
+        this.displaySortList(e.target.value);
+      });
+    }
+  }
+
+  displaySortList(sortType) {
+    let sorted = [...this.products];
+
+    if (sortType === "name") {
+      sorted.sort((a, b) => a.Name.localeCompare(b.Name));
+    }
+
+    else if (sortType === "price") {
+      sorted.sort((a, b) => a.FinalPrice - b.FinalPrice);
+    }
+
+    this.renderList(sorted);
   }
 
   renderList(list) {
-    renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", false);
+    // const htmlStrings = list.map(productCardTemplate);
+    // this.listElement.insertAdjacentHTML('afterbegin', htmlStrings.join(''));
+
+    renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
   }
 }
 

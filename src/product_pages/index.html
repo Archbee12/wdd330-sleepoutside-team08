@@ -12,34 +12,26 @@
   </head>
 
   <body>
-    <header id="main-header" class="divider"></header>
-    <main class="divider">
-      <section class="product-detail">
-        <h2 id="productBrand">Brand Name</h2>
-        <!--  Add ID -->
-        <h3 id="productName" class="divider">Product</h3>
-        <!--  Add ID -->
+    <header class="divider" id="main-header"></header>
 
-        <img
-          id="productImage"
-          class="product-image"
-          alt="Sleep Outside Camping Product"
-        />
-
-        <p id="productPrice" class="product-card__price"></p>
-        <p id="productColor" class="product__color"></p>
-        <div id="productDesc" class="product__description"></div>
-
-        <div class="product-detail__add">
-          <button id="addToCart">Add to Cart</button>
-        </div>
-      </section>
-    </main>
+    <section class="product-detail">
+      <h2>Brand Name</h2>
+      <h3 class="divider">Product</h3>
+      <img
+        src="../images/camping-products.jpg"
+        alt="Sleep Outside Camping Products"
+        id="productImage"
+        class="divider"
+      />
+      <p id="productPrice" class="product-card__price">$000.99</p>
+      <p id="productColor" class="product__color">Color</p>
+      <p id="productDesc" class="product__description">Description</p>
+      <div class="product-detail__add">
+        <button id="addToCart" data-id="productId">Add to Cart</button>
+      </div>
+    </section>
 
     <footer id="main-footer"></footer>
-    <script src="../js/product.js" type="module" defer></script>
-    <script src="../js/main.js" type="module" defer></script>
-    <script src="../js/utils.mjs" type="module" defer></script>
-    <script src="../js/CartCount.mjs" type="module" defer></script>
+    <script src="../js/main.js" type="module"></script>
   </body>
 </html>

@@ -1,10 +1,28 @@
-import { getLocalStorage, setLocalStorage, getDiscountInfo } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, getDiscountInfo, loadHeaderFooter } from "./utils.mjs";
+import { updateCartCount } from "./CartCount.mjs";
+
+
+loadHeaderFooter().then(() => {
+  const searchForm = document.getElementById("searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = document.getElementById("searchInput").value.trim();
+      if (query) {
+        // Redirect to the product listing page with search query
+        window.location.href = `/product-listing.html?search=${encodeURIComponent(query)}`;
+      }
+    });
+  }
+});
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
     this.product = {};
     this.dataSource = dataSource;
+    // console.log("Loaded Product ID:", this.productId);
+
   }
 
   async init() {
@@ -24,19 +42,29 @@ export default class ProductDetails {
     }
   }
 
-  addProductToCart() {
+  addProductToCart(product) {
     let cart = getLocalStorage("so-cart") || [];
 
-    const existingItemIndex = cart.findIndex(item => item.Id === this.product.Id);
+    const existingItems = cart.find(item => item.Id === this.product.Id);
+    
+    if (existingItems) {
+      existingItems.quantity = (existingItems.quantity || 1) + 1;
+    }
 
-    if (existingItemIndex > -1) {
-      cart[existingItemIndex].quantity = (cart[existingItemIndex].quantity || 1) + 1;
-    } else {
+    else {
       this.product.quantity = 1;
       cart.push(this.product);
+
+      // or this
+      // const addedProduct = { ...this.product, quantity: 1 };
+      // cart.push(addedProduct);
     }
 
     setLocalStorage("so-cart", cart);
+
+    updateCartCount();
+
+
   }
 
   renderProductDetails() {
@@ -47,9 +75,27 @@ export default class ProductDetails {
       brandEl.textContent = this.product.Brand?.Name || "Brand Not Found";
     }
 
-    const nameEl = document.getElementById("productName");
-    if (nameEl) {
-      nameEl.textContent = this.product.NameWithoutBrand || this.product.Name || "Product Name";
+    
+
+    document.querySelector('h2').textContent = this.product.Brand.Name;
+    document.querySelector('h3').textContent = this.product.NameWithoutBrand;
+
+    const productImage = document.getElementById('productImage');
+    productImage.src = this.product.Images.PrimaryMedium;
+    productImage.alt = this.product.NameWithoutBrand;
+
+    
+
+    // document.querySelector('#productPrice').textContent = this.product.FinalPrice;
+    const priceElement = document.querySelector('#productPrice');
+
+    if (isDiscounted) {
+      priceElement.innerHTML = `
+        <span class="final-price">$${this.product.FinalPrice.toFixed(2)}</span>
+        <span class="original-price">$${this.product.SuggestedRetailPrice.toFixed(2)}</span>
+      `;
+    } else {
+      priceElement.textContent = `$${this.product?.FinalPrice.toFixed(2)}`;
     }
 
     const priceEl = document.querySelector("#productPrice");

@@ -83,14 +83,28 @@ export function getDiscountInfo(product) {
   return { isDiscounted, discountPercent };
 }
 
-// convert a form element into a JSON object
+
+
 export function formDataToJSON(formElement) {
-  const formData = new FormData(formElement);
-  const jsonObject = {};
+  const formData = new FormData(formElement),
+    convertedJSON = {};
 
-  for (const [key, value] of formData.entries()) {
-    jsonObject[key] = value;
+  formData.forEach(function (value, key) {
+    convertedJSON[key] = value;
+  });
+
+  return convertedJSON;
+}
+
+export function initSearchBar() {
+  const searchForm = document.getElementById("searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = document.getElementById("searchInput").value.trim();
+      if (query) {
+        window.location.href = `/product_listing/index.html?search=${encodeURIComponent(query)}`;
+      }
+    });
   }
-
-  return jsonObject;
 }
