@@ -3,7 +3,6 @@ import ExternalServices from "./ExternalServices.mjs";
 // import ProductList from "./ProductList.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-
 // loadHeaderFooter().then(() => {
 //   const searchForm = document.getElementById("searchForm");
 //   if (searchForm) {

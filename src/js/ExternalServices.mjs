@@ -17,8 +17,7 @@ export default class ExternalServices {
     // this.category = category;
     // this.path = `../public/json/${this.category}.json`;
   }
-  async getData(category) {
-    console.log("API fetch URL:", `${baseURL}products/search/${category}`);
+  async getData(category = null) {  
 
     const response = await fetch(`${baseURL}products/search/${category}`);
     const data = await convertToJson(response);

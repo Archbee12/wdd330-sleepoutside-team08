@@ -17,6 +17,6 @@ alert.init();
 // });
 
 loadHeaderFooter().then(() => {
-  initSearchBar();      // ✅ Attaches search form listener
-  updateCartCount();    // ✅ Runs after header is injected
+  initSearchBar(); // ✅ Attaches search form listener
+  updateCartCount(); // ✅ Runs after header is injected
 });

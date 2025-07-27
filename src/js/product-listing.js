@@ -1,4 +1,4 @@
-import { getParam, loadHeaderFooter, initSearchBar } from "./utils.mjs";
+import { getParam, loadHeaderFooter } from "./utils.mjs";
 import ProductList from "./ProductList.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 

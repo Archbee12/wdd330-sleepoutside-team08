@@ -571,7 +571,6 @@ button[type="submit"]:hover {
   background-color: #005fa3;
 }
 
-
 /* Sort Form Styling */
 .sort-container {
   display: flex;
@@ -579,7 +578,7 @@ button[type="submit"]:hover {
   gap: 0.5rem;
   margin: 1.5rem 0;
   font-family: "Segoe UI", sans-serif;
-} 
+}
 
 .sort-label {
   font-weight: 600;
@@ -601,6 +600,50 @@ button[type="submit"]:hover {
   outline: none;
 }
 
+/* Search Styling */
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #fff;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  max-width: 250px;
+  transition: box-shadow 0.3s ease;
+}
+
+.search-form:focus-within {
+  box-shadow: 0 0 0 2px #4f46e5;
+}
+
+#searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 6px 8px;
+  font-size: 1rem;
+  background: transparent;
+}
+
+#searchInput::placeholder {
+  color: #aaa;
+}
+
+#searchForm button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #555;
+  padding: 4px;
+  transition: color 0.2s ease;
+  width: 40px;
+}
+
+#searchForm button:hover {
+  color: #000;
+}
 
 @media screen and (min-width: 768px) {
   .product-detail {
