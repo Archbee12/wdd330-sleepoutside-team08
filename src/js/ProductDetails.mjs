@@ -1,19 +1,10 @@
-import { getLocalStorage, setLocalStorage, getDiscountInfo, loadHeaderFooter } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, getDiscountInfo, loadHeaderFooter, initSearchBar } from "./utils.mjs";
 import { updateCartCount } from "./CartCount.mjs";
 
 
 loadHeaderFooter().then(() => {
-  const searchForm = document.getElementById("searchForm");
-  if (searchForm) {
-    searchForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const query = document.getElementById("searchInput").value.trim();
-      if (query) {
-        // Redirect to the product listing page with search query
-        window.location.href = `/product-listing.html?search=${encodeURIComponent(query)}`;
-      }
-    });
-  }
+  initSearchBar(); // ✅ Attaches search form listener
+  updateCartCount(); // ✅ Runs after header is injected
 });
 
 export default class ProductDetails {

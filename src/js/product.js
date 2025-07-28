@@ -2,7 +2,6 @@ import { loadHeaderFooter, getParam, initSearchBar } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 // import ProductList from "./ProductList.mjs";
 import ProductDetails from "./ProductDetails.mjs";
-import ExternalServices from "./ExternalServices.mjs";
 
 
 
