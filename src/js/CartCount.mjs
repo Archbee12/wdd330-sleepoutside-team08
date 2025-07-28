@@ -6,6 +6,9 @@ export function updateCartCount() {
   const cartCount = document.getElementById("cart-count");
 
   const count = cartItems.length;
+  console.log("Cart count updated:", count);
+
+
 
   if (count > 0) {
     cartCount.textContent = count;
