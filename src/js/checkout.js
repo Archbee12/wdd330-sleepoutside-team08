@@ -6,7 +6,6 @@ loadHeaderFooter().then(() => {
   updateCartCount();
 });
 
-
 // Initialize checkout process
 const checkout = new CheckoutProcess("so-cart", ".order-summary");
 checkout.init();

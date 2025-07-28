@@ -3,8 +3,6 @@ import ExternalServices from "./ExternalServices.mjs";
 // import ProductList from "./ProductList.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-
-
 loadHeaderFooter().then(() => {
   initSearchBar(); // ✅ Correct way to initialize search bar after header loads
 });
