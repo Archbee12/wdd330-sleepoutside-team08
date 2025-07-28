@@ -645,6 +645,35 @@ button[type="submit"]:hover {
   color: #000;
 }
 
+/* BreadCrumb Styling */
+#breadcrumb {
+  font-size: 0.95rem;
+  margin: 1rem 1rem 0;
+  padding: 0.5rem 1rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  color: #333;
+  display: inline-block;
+}
+
+#breadcrumb a {
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+#breadcrumb a:hover {
+  color: #004999;
+}
+
+#breadcrumb span {
+  color: #666;
+  font-weight: 400;
+}
+
+
+
 @media screen and (min-width: 768px) {
   .product-detail {
     gap: 2rem;

@@ -2,8 +2,8 @@ import { loadHeaderFooter, getLocalStorage, initSearchBar } from "./utils.mjs";
 import { updateCartCount } from "./CartCount.mjs";
 
 loadHeaderFooter().then(() => {
-  initSearchBar(); // ✅ Attaches search form listener
-  updateCartCount(); // ✅ Runs after header is injected
+  initSearchBar();
+  updateCartCount();
 });
 
 function renderCartContents() {

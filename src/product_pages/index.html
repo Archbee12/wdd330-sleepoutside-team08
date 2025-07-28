@@ -16,22 +16,36 @@
   <body>
     <header class="divider" id="main-header"></header>
 
-    <section class="product-detail">
-      <h2>Brand Name</h2>
-      <h3 class="divider">Product</h3>
-      <img
-        src="../images/camping-products.jpg"
-        alt="Sleep Outside Camping Products"
-        id="productImage"
-        class="divider"
-      />
-      <p id="productPrice" class="product-card__price">$000.99</p>
-      <p id="productColor" class="product__color">Color</p>
-      <p id="productDesc" class="product__description">Description</p>
-      <div class="product-detail__add">
-        <button id="addToCart" data-id="productId">Add to Cart</button>
-      </div>
-    </section>
+    <main>
+      <section class="product-detail">
+        <h2>Brand Name</h2>
+        <h3 class="divider">Product</h3>
+        <img
+          src="../images/camping-products.jpg"
+          alt="Sleep Outside Camping Products"
+          id="productImage"
+          class="divider"
+        />
+        <p id="productPrice" class="product-card__price">$000.99</p>
+        <p id="productColor" class="product__color">Color</p>
+        <p id="productDesc" class="product__description">Description</p>
+        <div class="product-detail__add">
+          <button id="addToCart" data-id="productId">Add to Cart</button>
+        </div>
+      </section>
+
+      <section id="comments-section">
+        <h2>Customer Comments</h2>
+        <ul id="comments-list"></ul>
+
+        <form id="comment-form">
+          <textarea id="comment-text" required placeholder="Write your comment..." rows="4"></textarea>
+          <button type="submit">Post Comment</button>
+        </form>
+      </section>
+
+    </main>
+    
 
     <footer id="main-footer">&copy;NOT a real business</footer>
   </body>

@@ -2,19 +2,24 @@ import { getParam, loadHeaderFooter } from "./utils.mjs";
 import ProductList from "./ProductList.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 import { updateCartCount } from "./CartCount.mjs";
+import { updateBreadcrumb } from "./BreadCrumbs.mjs";
+
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await loadHeaderFooter(); // wait for header/footer to load
-  updateCartCount(); // update cart icon badge
+  await loadHeaderFooter();
+  updateCartCount();
 
-  // Get the category from the URL
   const category = getParam("category") || "tents";
 
-  // Select the list element (now guaranteed to exist)
   const listElement = document.querySelector(".product-list");
 
-  // Instantiate and initialize product list
   const dataSource = new ExternalServices(category);
   const productList = new ProductList(category, dataSource, listElement);
-  productList.init();
+  await productList.init();
+
+  const productCount = listElement.children.length;
+  updateBreadcrumb("listing", {category, count: productCount});
+
 });
