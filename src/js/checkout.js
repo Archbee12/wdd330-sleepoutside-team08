@@ -1,8 +1,11 @@
 import { loadHeaderFooter } from "./utils.mjs";
 import CheckoutProcess from "./CheckoutProcess.mjs";
+import { updateCartCount } from "./CartCount.mjs";
 
-// Load the header and footer
-loadHeaderFooter();
+loadHeaderFooter().then(() => {
+  updateCartCount();
+});
+
 
 // Initialize checkout process
 const checkout = new CheckoutProcess("so-cart", ".order-summary");

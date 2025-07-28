@@ -3,8 +3,8 @@ import { updateCartCount } from "./CartCount.mjs";
 
 
 loadHeaderFooter().then(() => {
-  initSearchBar(); // ✅ Attaches search form listener
-  updateCartCount(); // ✅ Runs after header is injected
+  initSearchBar();
+  updateCartCount(); 
 });
 
 export default class ProductDetails {
