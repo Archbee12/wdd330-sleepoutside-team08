@@ -706,6 +706,7 @@ button[type="submit"]:hover {
 
 /* Checkout Error Alert */
 .alert {
+  position: relative;
   background-color: #f4a261; /* orange shade */
   color: #000;
   padding: 0.75rem 1rem;
@@ -716,6 +717,9 @@ button[type="submit"]:hover {
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.4s ease;
 }
 
 .alert p {
@@ -730,6 +734,15 @@ button[type="submit"]:hover {
   padding-left: 1rem;
 }
 
+.alert.slide-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.alert.fade-out {
+  opacity: 0;
+  transform: translateX(-50px);
+}
 
 @media screen and (min-width: 768px) {
   .product-detail {

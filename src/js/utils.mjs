@@ -143,17 +143,17 @@ export function initComments(productId) {
 
 export function alertMessage(message, scroll = true) {
   const alert = document.createElement('div');
-  alert.classList.add('alert');
+  alert.classList.add("alert", "slide-in");
   alert.innerHTML = `
     <p>${message}</p>
     <span class="close-btn">X</span>
   `;
 
   // Close the alert when X is clicked
-  alert.addEventListener('click', function (e) {
-    if (e.target.classList.contains('close-btn')) {
-      alert.remove();
-    }
+  alert.querySelector('.close-btn').addEventListener('click', () => {
+    alert.classList.remove('slide-in');
+    alert.classList.add('fade-out');
+    setTimeout(() => alert.remove(), 500);
   });
 
   const main = document.querySelector('main');
@@ -162,4 +162,12 @@ export function alertMessage(message, scroll = true) {
   if (scroll) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  setTimeout(() => {
+    if (document.body.contains(alert)) {
+      alert.classList.remove('slide-in');
+      alert.classList.add('fade-out');
+      setTimeout(() => alert.remove(), 500);
+    }
+  }, 10000);
 }

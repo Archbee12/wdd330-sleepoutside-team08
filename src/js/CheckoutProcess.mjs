@@ -26,7 +26,7 @@ function validExpirationDate(dateStr) {
 
   // Extract parts
   const [monthStr, yearStr] = dateStr.split("/");
-  const month = parseIngitt(monthStr, 10);
+  const month = parseInt(monthStr, 10);
   const year = parseInt(yearStr, 10);
 
   // Convert to full year
@@ -109,8 +109,14 @@ export default class CheckoutProcess {
       quantity: item.quantity || 1
     }));
   }
+  
 
   async checkout() {
+    if (this.list.length === 0) {
+      alertMessage("Your cart is empty. Please add items before checking out.");
+      return;
+    }
+
     // console.log("checkout function triggered")
     const formElement = document.forms["checkout"];
     const order = formDataToJSON(formElement);

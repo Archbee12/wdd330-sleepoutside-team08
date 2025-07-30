@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, getDiscountInfo, loadHeaderFooter, initComments } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, getDiscountInfo, loadHeaderFooter, initComments, alertMessage } from "./utils.mjs";
 import { updateCartCount } from "./CartCount.mjs";
 
 
@@ -47,6 +47,7 @@ export default class ProductDetails {
 
     updateCartCount();
 
+    alertMessage("Item added to cart!");
 
   }
 
