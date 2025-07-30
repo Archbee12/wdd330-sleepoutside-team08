@@ -1,8 +1,45 @@
 import ExternalServices from "./ExternalServices.mjs";
 
-import { formDataToJSON, getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, alertMessage } from "./utils.mjs";
 
 const services = new ExternalServices(); 
+
+function formDataToJSON(formElement) {
+  // convert the form data to a JSON object
+  const formData = new FormData(formElement);
+  const convertedJSON = {};
+  formData.forEach((value, key) => {
+    convertedJSON[key] = value;
+  });
+  return convertedJSON;
+}
+
+function validCardNumber(cardNumber) {
+  const regex = /^\d{13,19}$/;
+  return regex.test(cardNumber);
+}
+
+function validExpirationDate(dateStr) {
+  // Check format: MM/YY
+  const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+  if (!regex.test(dateStr)) return false;
+
+  // Extract parts
+  const [monthStr, yearStr] = dateStr.split("/");
+  const month = parseIngitt(monthStr, 10);
+  const year = parseInt(yearStr, 10);
+
+  // Convert to full year
+  const currentYear = new Date().getFullYear() % 100; // Get last two digits
+  const fullYear = year + 2000;
+
+  // Compare with current date
+  const expiryDate = new Date(fullYear, month); // 1st of next month
+  const now = new Date();
+
+  return expiryDate > now;
+}
+
 
 export default class CheckoutProcess {
   constructor(key, outputSelector) {
@@ -74,40 +111,86 @@ export default class CheckoutProcess {
   }
 
   async checkout() {
-    console.log("checkout function triggered")
+    // console.log("checkout function triggered")
     const formElement = document.forms["checkout"];
     const order = formDataToJSON(formElement);
 
-    console.log("Order from form:", order);
+    // console.log("Order from form:", order);
 
-    order.orderDate = new Date().toISOString();
-    order.orderTotal = this.orderTotal;
-    order.tax = this.tax;
-    order.shipping = this.shipping;
-    order.items = this.packageItems(this.list);
+
+    order.orderDate = new Date().toISOString(),
+    order.orderTotal = this.orderTotal,
+    order.tax = this.tax,
+    order.shipping = this.shipping,
+    order.items = this.packageItems(this.list),
+    order.customer = {
+      fname: order.fname,
+      lname: order.lname,
+      street: order.street,
+      city: order.city,
+      state: order.state,
+      zip: order.zip
+    },
+    order.payment = {
+      cardNumber: order.cardNumber,
+      expiration: order.expiration,
+      code: order.code
+    }
     console.log("Final order data:", order);
 
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(order)
-    };
+    // if (!validCardNumber(order.cardNumber) || !validCVV(order.code)) {
+    //   this.displayCheckoutError({ message: "Oops! Please check card details and try again." });
+    //   return;
+    // }
 
-    try {
-      const response = await fetch("https://wdd330-backend.onrender.com:3000/checkout", options);
-      const result = await response.json();
-      console.log("Server response:", result);
-    } catch (err) {
-      console.error("Checkout error:", err);
+    if (!validCardNumber(order.cardNumber)) {
+      this.displayCheckoutError({ message: "Invalid card number. Please check and try again." });
+      return;
     }
+
+    if (!validExpirationDate(order.expiration)) {
+    this.displayCheckoutError({ message: "Invalid or expired expiration date." });
+    return;
+  }
+
+
 
     try {
       const response = await services.checkout(order);
-      console.log(response);
+      // console.log("Order success:", response);
+      window.location.href = "success.html";
+      localStorage.removeItem("so-cart");
     } catch (err) {
-      console.log(err);
-    }
+          console.error("Unexpected error during checkout:", err);
+          console.error("Type of err:", typeof err);
+          console.error("err.message:", err.message);
+
+          // Try if err is a Response (Fetch API error)
+          if (err instanceof Response) {
+            try {
+              const errorData = await err.json();
+              this.displayCheckoutError({ message: errorData.message || "Checkout failed. Please check your input." });
+            } catch (jsonError) {
+              this.displayCheckoutError({ message: "Unable to parse server error. Please try again." });
+            }
+          } 
+          // If error was thrown manually (like throw new Error("msg"))
+          else if (err instanceof Error) {
+            this.displayCheckoutError({ message: err.message });
+          } 
+          // If the message is buried deeper or unknown
+          else {
+            this.displayCheckoutError({ message: "Invalid Card Number. Please try again." });
+          }
+        }
+
+
   }
+
+  displayCheckoutError(error) {
+    const message = error.message || "Checkout failed. Please check your input.";
+    alertMessage(message);
+    }
+  
+
 }

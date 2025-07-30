@@ -17,6 +17,7 @@ function productCardTemplate(product) {
           ${isDiscounted ? `<span class="original-price">$${product.SuggestedRetailPrice}</span>` : ""}
         </p>
       </a>
+      <button class="quick-view-btn" data-id="${product.Id}">Quick View</button>
     </li>
   `;
 }
@@ -85,6 +86,20 @@ class ProductList {
     // this.listElement.insertAdjacentHTML('afterbegin', htmlStrings.join(''));
 
     renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
+
+    this.addQuickViewListeners();
+
+  }
+
+  addQuickViewListeners() {
+    const buttons = this.listElement.querySelectorAll(".quick-view-btn");
+    buttons.forEach(button => {
+      button.addEventListener("click", async (e) => {
+        const productId = e.currentTarget.getAttribute("data-id");
+        const product = await this.dataSource.findProductById(productId);
+        showQuickViewModal(product);
+      });
+    });
   }
 }
 

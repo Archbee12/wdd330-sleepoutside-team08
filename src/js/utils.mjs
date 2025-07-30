@@ -5,7 +5,7 @@ export function qs(selector, parent = document) {
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  return JSON.parse(localStorage.getItem(key)) || [];
 }
 
 // save data to local storage
@@ -106,5 +106,60 @@ export function initSearchBar() {
         window.location.href = `/product_listing/index.html?search=${encodeURIComponent(query)}`;
       }
     });
+  }
+}
+
+export function initComments(productId) {
+  const commentSection = document.getElementById("comments-section");
+  const commentList = document.getElementById("comments-list");
+  const commentForm = document.getElementById("comment-form");
+  const commentTextarea = commentForm.querySelector("textarea");
+
+  // Load saved comments from localStorage
+  let comments = JSON.parse(localStorage.getItem(`comments_${productId}`)) || [];
+  renderComments(comments);
+
+  // Handle new comment submission
+  commentForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const newComment = commentTextarea.value.trim();
+    if (newComment) {
+      comments.push(newComment);
+      localStorage.setItem(`comments_${productId}`, JSON.stringify(comments));
+      renderComments(comments);
+      commentTextarea.value = "";
+    }
+  });
+
+  function renderComments(comments) {
+    commentList.innerHTML = "";
+    comments.forEach((comment) => {
+      const li = document.createElement("li");
+      li.textContent = comment;
+      commentList.appendChild(li);
+    });
+  }
+}
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+  alert.innerHTML = `
+    <p>${message}</p>
+    <span class="close-btn">X</span>
+  `;
+
+  // Close the alert when X is clicked
+  alert.addEventListener('click', function (e) {
+    if (e.target.classList.contains('close-btn')) {
+      alert.remove();
+    }
+  });
+
+  const main = document.querySelector('main');
+  main.prepend(alert); // this stacks newest on top
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

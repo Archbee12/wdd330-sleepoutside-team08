@@ -1,5 +1,6 @@
-import { getLocalStorage, setLocalStorage, getDiscountInfo, loadHeaderFooter } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, getDiscountInfo, loadHeaderFooter, initComments } from "./utils.mjs";
 import { updateCartCount } from "./CartCount.mjs";
+
 
 loadHeaderFooter();
 
@@ -19,6 +20,9 @@ export default class ProductDetails {
 
     document.getElementById('addToCart')
       .addEventListener('click', this.addProductToCart.bind(this));
+
+    initComments(this.productId);
+
   }
 
   addProductToCart(product) {

@@ -8,8 +8,11 @@ async function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error("Bad Response");
-  }
+    throw {
+      name: "servicesError",
+      message: "jsonResponse"
+    }
+  };
 }
 
 export default class ExternalServices {
@@ -36,5 +39,18 @@ export default class ExternalServices {
     const data = await convertToJson(response);
     return data.Result;
   }
+
+  async checkout(order) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(order)
+    };
+
+    return await fetch(`${baseURL}checkout/`, options).then(convertToJson); // success
+  }
+
 
 }

@@ -3,6 +3,7 @@ import ProductList from "./ProductList.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 import { updateCartCount } from "./CartCount.mjs";
 import { updateBreadcrumb } from "./BreadCrumbs.mjs";
+import { initQuickView } from "./QuickView.mjs";
 
 
 
@@ -10,6 +11,7 @@ import { updateBreadcrumb } from "./BreadCrumbs.mjs";
 document.addEventListener("DOMContentLoaded", async () => {
   await loadHeaderFooter();
   updateCartCount();
+  initQuickView();
 
   const category = getParam("category") || "tents";
 
