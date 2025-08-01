@@ -1,6 +1,4 @@
-
 // Loads an HTML partial from a given path and returns a DocumentFragment
-
 export async function loadTemplate(path) {
   const response = await fetch(path);
   if (!response.ok) throw new Error(`Failed to load template: ${path}`);
@@ -39,32 +37,45 @@ export async function loadHeaderFooter({
     if (typeof onFooterLoaded === "function") onFooterLoaded();
   }
 }
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
-// retrieve data from localstorage
+// retrieve data from localstorage with error handling
 export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
+  try {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  } catch (error) {
+    console.error(`Error parsing JSON from localStorage key "${key}":`, error);
+    return null;
+  }
 }
+
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
-};
-// set a listener for both touchend and click
-export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
-    event.preventDefault();
-    callback();
-  });
-  qs(selector).addEventListener("click", callback);
-};
+}
 
+// set a listener for both touchend and click, with element existence check
+export function setClick(selector, callback) {
+  const el = qs(selector);
+  if (!el) {
+    console.warn(`setClick: Element not found for selector "${selector}"`);
+    return;
+  }
+  el.addEventListener("touchend", (event) => {
+    event.preventDefault();
+    callback(event);
+  });
+  el.addEventListener("click", callback);
+}
+
+// get URL query parameter by name
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  return urlParams.get(param); // uses the passed-in param!
+  return urlParams.get(param);
 }
