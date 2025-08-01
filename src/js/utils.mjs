@@ -79,3 +79,21 @@ export function getParam(param) {
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
+export function alertMessage(message, scroll=true) {
+  const alertElement = document.createElement('div');
+  alertElement.classList.add('alert');
+  alertElement.innerHTML = message;
+
+  // Append to the top of the body or form
+  document.body.insertBefore(alertElement, document.body.firstChild);
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Remove after 5 seconds
+  setTimeout(() => {
+    alertElement.remove();
+  }, 5000);
+}
+

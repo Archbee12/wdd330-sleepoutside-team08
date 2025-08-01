@@ -13,12 +13,12 @@ export default class CheckoutProcess {
   }
 
   calculateTax() {
-    this.tax = this.subtotal * 0.06;
+    this.tax = this.subtotal * 0.06; // Tax rate 6%
     return this.tax;
   }
 
   calculateShipping() {
-    this.shipping = 10 + (this.cart.length - 1) * 2;
+    this.shipping = 10 + (this.cart.length - 1) * 2; // Shipping formula
     return this.shipping;
   }
 
@@ -81,7 +81,7 @@ export default class CheckoutProcess {
     const result = await response.json();
     if (result.success) {
       alert('Order submitted successfully!');
-      window.location.href = '/thank-you.html';
+      window.location.href = '/thank-you.html'; // Redirect to the success page
     } else {
       alert('Error submitting the order.');
     }
